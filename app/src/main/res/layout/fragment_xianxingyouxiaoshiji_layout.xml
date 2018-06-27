@@ -1,0 +1,1386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_yiqi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_ed_bold">
+
+            <TextView
+                android:id="@+id/tv_curremt_yiqi"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="请选择仪器" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/icon_arrow_down" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_yinzi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/ll_yiqi"
+            android:background="@drawable/shape_ed_bold">
+
+            <TextView
+                android:id="@+id/tv_curremt_yinzi"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="因子" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_upload"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/login_bt_bg_color"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="#fff" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@drawable/shape_ed_bold">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="响应时间:" />
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/et_ResponseTime"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="是否合格:" />
+
+                <RadioGroup
+                    android:id="@+id/rg_Qualification"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_Qualification1"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:text="合格" />
+
+                    <RadioButton
+                        android:id="@+id/rb_Qualification2"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:text="不合格" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点漂移"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="标准液浓度：" />
+
+                <EditText
+                    android:id="@+id/et_StandardValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="量程值：" />
+
+                <EditText
+                    android:id="@+id/et_RangeValues"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="测定值" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第1次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第2次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第3次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第4次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第5次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第6次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第7次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第8次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第9次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第10次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi10"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian10"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第11次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第12次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第13次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第14次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian14"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第15次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi15"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian15"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第16次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi16"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian16"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第17次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi17"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian17"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第18次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi18"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian18"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第19次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi19"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian19"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第20次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi20"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian20"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第21次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi21"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian21"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第22次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi22"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian22"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第23次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi23"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian23"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第24次" />
+
+                    <EditText
+                        android:id="@+id/et_ceshizhi24"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_chishishijian24"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="初始值:" />
+
+                <EditText
+                    android:id="@+id/et_InitialValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="最小值:" />
+
+                <EditText
+                    android:id="@+id/et_MinValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="最大值:" />
+
+                <EditText
+                    android:id="@+id/et_MaxValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点漂移%:" />
+
+                <EditText
+                    android:id="@+id/et_ZeroDrift"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:id="@+id/tv_jisuan1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/login_bt_bg_color"
+                    android:gravity="center"
+                    android:text="计算"
+                    android:textColor="#fff" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/textblue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="量程漂移考核"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="响应时间：" />
+
+                <TextView
+                    android:id="@+id/et_DateTimeXY"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="标准液浓度：" />
+
+                <EditText
+                    android:id="@+id/et_StandardValueL"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="量程值：" />
+
+                <EditText
+                    android:id="@+id/et_RangeValuesL"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点校准前1"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第1次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第2次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第3次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点校准后"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第4次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第5次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="第6次" />
+
+                    <EditText
+                        android:id="@+id/et_lingdianceshizhi6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/tv_lingdianchishishijian6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_ed_bold"
+                        android:gravity="center"
+                        android:text="选择时间" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="测试平均值:" />
+
+                <EditText
+                    android:id="@+id/et_AverageValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点值:" />
+
+                <EditText
+                    android:id="@+id/et_ZeroValue"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="零点漂移%:" />
+
+                <EditText
+                    android:id="@+id/et_SpanDrift"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ed_bold" />
+
+                <TextView
+                    android:id="@+id/tv_jisuan2"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/login_bt_bg_color"
+                    android:gravity="center"
+                    android:text="计算"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

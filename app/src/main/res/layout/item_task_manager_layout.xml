@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_task_manager_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="任务编号" />
+
+        <TextView
+            android:id="@+id/item_task_manager_station_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="站点名称" />
+
+        <TextView
+            android:id="@+id/item_task_manager_task_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="任务名称" />
+
+        <TextView
+            android:id="@+id/item_task_manager_task_type"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="任务类型" />
+
+        <TextView
+            android:id="@+id/item_task_manager_plan_start_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="time" />
+
+        <TextView
+            android:id="@+id/item_task_manager_end_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="endtime" />
+
+
+        <TextView
+            android:id="@+id/item_task_manager_task_status"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="状态" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/item_task_manager_detailed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_bt_bg_color"
+                android:gravity="center"
+                android:text="详细"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/item_task_manager_upload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/upload_bt_bg_color"
+                android:gravity="center"
+                android:text="上传"
+                android:textColor="#fff"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/item_task_manager_upload_yes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/uploadyes_bt_bg_color"
+                android:gravity="center"
+                android:text="已经上传"
+                android:textColor="#fff"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

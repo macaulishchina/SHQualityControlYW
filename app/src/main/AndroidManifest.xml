@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sinoyd.frameapplication">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name="com.example.sinoyd.jiaxingywapplication.Myapplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/shlogo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/shlogo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="d8e85c8d22f41a0c92475d592dca45b0" />
+
+
+        <activity android:name=".KotlinFrame.Code.UI.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".KotlinFrame.UI.BarChartActivity" />
+        <activity android:name=".KotlinFrame.Frame.TestActivity" />
+        <activity android:name=".KotlinFrame.UI.SingleMoreActivity" />
+        <activity android:name=".KotlinFrame.UI.TwodimensionallistActivity" />
+        <activity android:name=".KotlinFrame.UI.SelectionbarActivity" />
+        <activity android:name=".KotlinFrame.UI.TimeSelectionBarActivity" />
+        <activity android:name=".KotlinFrame.UI.TimeselectiondialogActivity" />
+        <activity android:name=".KotlinFrame.UI.ImitateIOSActivity" />
+        <activity android:name=".KotlinFrame.UI.TimeDialogdemoActivity" />
+        <activity android:name=".KotlinFrame.Code.UI.MainActivity" />
+        <activity android:name=".KotlinFrame.Code.UI.Sign_in_Activity" />
+        <activity
+            android:name=".KotlinFrame.Code.UI.ScanActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".KotlinFrame.Code.UI.Task_management_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Site_location_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Monitoring_data_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Alarm_information_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Atatistical_analysis_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Reagent_reducatant_manager_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Temporary_Tasks_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Sampling_record_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Water_quality_anto_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Water_Monitoring_Inspection_Activity" />
+        <activity
+            android:name=".KotlinFrame.Code.UI.New_Standard_solution_verification_Activity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".KotlinFrame.Code.UI.New_Realsample_comparison_Activity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".KotlinFrame.Code.UI.New_Standard_Recovery_Activity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Blindness_examination_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.New_Performance_assessment_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Reagent_manager_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.Reductant_manager_Activity"></activity>
+        <activity
+            android:name=".KotlinFrame.Code.UI.New_Accuracy_and_precision_Activity"
+            android:windowSoftInputMode="adjustPan"></activity>
+    </application>
+
+</manifest>

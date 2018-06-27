@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@mipmap/icon_bg"
+    tools:context="com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.LoginActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_bottom"
+        android:gravity="center"
+        android:text="Copyright©️上海环境监测中心"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="江苏远大信息股份有限公司技术支持"
+        android:textColor="#fff" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@mipmap/icon_userimage" />
+
+            <EditText
+                android:singleLine="true"
+                android:id="@+id/ed_middle"
+                android:layout_width="360dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/login_ed_bg_color"
+                android:paddingLeft="20dp"></EditText>
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:singleLine="true"
+                    android:id="@+id/et_password"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/login_ed_bg_color"
+                    android:paddingLeft="20dp"
+                    android:inputType="textPassword"></EditText>
+
+                <ImageView
+                    android:id="@+id/btn_login"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/btn_login" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>
