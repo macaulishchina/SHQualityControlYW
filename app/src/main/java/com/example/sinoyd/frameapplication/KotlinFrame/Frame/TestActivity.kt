@@ -7,6 +7,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.Tabframe
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Fragment.OneFragment
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.bottom_navigation_bar
 import kotlinx.android.synthetic.main.frame_activity_main.*
 
 class TestActivity : BaseActivity() {
