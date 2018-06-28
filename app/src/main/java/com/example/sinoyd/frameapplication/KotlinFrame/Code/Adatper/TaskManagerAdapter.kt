@@ -39,7 +39,6 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
             holder = view.tag as ViewHolder
         }
 
-
         //部署数据
         holder.number.text = list[p0].id.toString() //任务编号
         holder.stationname.text = list[p0].pointName.toString()  //站点名称
@@ -51,6 +50,14 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         holder.endtime.text = list[p0].endTime.toString()  //结束时间
         holder.taskstatus.text = list[p0].taskStatusName.toString() //任务状态
 
+        //是否包含图片，显示不同
+        if((con as Task_management_Activity).containPicture(list[p0].rowGuid)){
+            holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.uploadyes_bt_bg_color)
+            holder.addpic.text = "更换图片"
+        }else{
+            holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.btn_bg_gray)
+            holder.addpic.text = "添加图片"
+        }
         //上传是否
         if (list[p0].upload) {
             holder.uploadyes.visibility = View.VISIBLE
@@ -71,6 +78,9 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
             (con as Task_management_Activity).goto(list[p0].formCode, list[p0].rowGuid, list[p0].taskTypeName, list[p0].pointId.toString())
         }
 
+        holder.addpic.onClick {
+            (con as Task_management_Activity).gotoAddPic(list[p0].rowGuid)
+        }
         view.onClick {
             holder.detailed.performClick()
         }
@@ -104,6 +114,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         var detailed = TextView(con)
         var upload = TextView(con)
         var uploadyes = TextView(con)
+        var addpic = TextView(con)
 
 
         init {
@@ -117,6 +128,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
             detailed = view.item_task_manager_detailed
             upload = view.item_task_manager_upload
             uploadyes = view.item_task_manager_upload_yes
+            addpic = view.item_task_manager_add_pic
         }
     }
 }

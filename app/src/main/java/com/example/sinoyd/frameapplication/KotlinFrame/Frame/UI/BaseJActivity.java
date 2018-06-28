@@ -14,6 +14,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Config.ResConfig;
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.BaseNavigationBar;
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.FrmSlideBackLayout;
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.InfoStatusItem;
+import com.example.sinoyd.frameapplication.R;
 
 import butterknife.ButterKnife;
 
@@ -42,7 +43,7 @@ public class BaseJActivity extends Activity implements BaseNavigationBar.NBBarAc
         mSlideBack.bind();
         //初始化默认布局
         LayoutInflater inflater = LayoutInflater.from(this);
-        this.rootView = inflater.inflate(ResConfig.getBaseLayoutId(), (ViewGroup)null);
+        this.rootView = inflater.inflate(R.layout.frmbase, (ViewGroup)null);
         this.setContentView(this.rootView);
         this.baseContent = (FrameLayout)this.rootView.findViewById(ResConfig.getBaseContentId());
         this.nbBar = new BaseNavigationBar(this.rootView, this);

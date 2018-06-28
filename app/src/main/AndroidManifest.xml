@@ -45,6 +45,7 @@
         <activity android:name=".KotlinFrame.UI.TimeDialogdemoActivity" />
         <activity android:name=".KotlinFrame.Code.UI.MainActivity" />
         <activity android:name=".KotlinFrame.Code.UI.Sign_in_Activity" />
+        <activity android:name=".KotlinFrame.Code.UI.AddOrUpdate_Picture_Activity"/>
         <activity
             android:name=".KotlinFrame.Code.UI.ScanActivity"
             android:screenOrientation="landscape" />

@@ -9,6 +9,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.TaskManagerA
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.Up
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskFactor
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.BiaoZhunData
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.JianChuXianData
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.LingDianData
@@ -185,6 +186,23 @@ class Task_management_Activity : BaseActivity() {
             }
         }
     }
+
+    /**
+     * 跳转到添加图片界面
+     */
+    fun gotoAddPic(guid:String){
+        startActivity<AddOrUpdate_Picture_Activity>("rowGuid" to guid)
+    }
+
+    /**
+     * 判断这条记录本地是否有待上传图片
+     */
+    fun containPicture(guid : String):Boolean{
+        val res = db!!.selector(FormTaskPicture::class.java).where("RowGuid", "=", guid).findAll()
+        return !(res == null || res.isEmpty())
+    }
+
+
 
     //上传任务
     fun upload(type: String, guid: String, pointId: Int) {
