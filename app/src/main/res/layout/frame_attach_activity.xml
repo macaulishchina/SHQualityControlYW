@@ -17,7 +17,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
-        android:text="@string/add_pic"
+        android:text="添加图片"
         android:background="@drawable/frm_searchbar_bg"
         android:backgroundTint="@color/sino_blue"
         android:textColor="@color/white"

@@ -51,7 +51,7 @@ public class Frm_AttachAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         if (convertView == null) {
             convertView = View.inflate(context,
-                    R.layout.frm_attach_item, null);
+                    R.layout.frame_attach_item, null);
             new ViewHolder(convertView);
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();

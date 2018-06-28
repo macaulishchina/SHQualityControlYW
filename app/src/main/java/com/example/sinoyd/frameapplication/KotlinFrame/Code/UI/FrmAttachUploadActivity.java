@@ -65,7 +65,7 @@ public class FrmAttachUploadActivity extends SinoBaseActivity implements FrmActi
 
         getNbBar().setNBTitle("附件上传");
 
-        setLayout(R.layout.frm_attach_activity);
+        setLayout(R.layout.frame_attach_activity);
         lvAttach = findViewById(R.id.lv_attach);
         btnAdd = findViewById(R.id.btn_add);
         initView();
