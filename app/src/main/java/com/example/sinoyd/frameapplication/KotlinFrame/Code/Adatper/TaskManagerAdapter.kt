@@ -53,7 +53,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         //是否包含图片，显示不同
         if((con as Task_management_Activity).containPicture(list[p0].rowGuid)){
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.uploadyes_bt_bg_color)
-            holder.addpic.text = "更换图片"
+            holder.addpic.text = "查看图片"
         }else{
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.btn_bg_gray)
             holder.addpic.text = "添加图片"
