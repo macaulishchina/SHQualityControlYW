@@ -93,14 +93,6 @@ class New_Realsample_comparison_Activity : BaseActivity() {
             }
             dateDialog.show()
         }
-        //设置监听完成时间
-        ll_done.onClick {
-            var dateDialog = DateTimePickerControl(act, AlertDialog.THEME_HOLO_LIGHT, "datetime", "#0f82ff")
-            dateDialog.SetDateSelectListener { datestring ->
-                ll_done.text = datestring
-            }
-            dateDialog.show()
-        }
 
         //选择站点
         tv_station_name.onClick {
@@ -162,15 +154,11 @@ class New_Realsample_comparison_Activity : BaseActivity() {
                 }
                 formtask.pointName = tv_station_name.text.toString()//站点名称
                 if (ll_time.text.toString() == "") {//采样时间
-                    formtask.endTime = date.getToday("yyyy/MM/dd HH:mm:ss")
+                    formtask.startDate = date.getToday("yyyy/MM/dd HH:mm:ss")
                 } else {
-                    formtask.endTime = ll_time.text.toString()
+                    formtask.startDate = ll_time.text.toString()
                 }
-                if (ll_done.text.toString() == "") {//完成时间
-                    formtask.endDate = date.getToday("yyyy/MM/dd HH:mm:ss")
-                } else {
-                    formtask.endDate = ll_done.text.toString()
-                }
+
                 formtask.username = name.text.toString()//采样人员
                 formtask.userid = SharedPreferencesFactory.getdata(this, "RowGuid")//用户名id，后面取数据的时候，是判断条件之一
                 formtask.taskStatusName = "未上传"

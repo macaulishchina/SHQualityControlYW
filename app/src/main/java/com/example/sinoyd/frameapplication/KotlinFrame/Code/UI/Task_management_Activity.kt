@@ -24,6 +24,8 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.iv_home
+import com.example.sinoyd.frameapplication.R.id.lv_task_management
 import com.example.sinoyd.jiaxingywapplication.Myapplication
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory

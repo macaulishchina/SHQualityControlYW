@@ -1,5 +1,6 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -7,13 +8,15 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import okhttp3.logging.HttpLoggingInterceptor;
+
 /**
  * 作者： 王一凡
  * 创建时间： 2017/9/5
  * 版权： 江苏远大信息股份有限公司
  * 描述：日志工具类
  */
-public class LogUtil {
+public class LogUtil implements HttpLoggingInterceptor.Logger {
     public LogUtil() {
     }
 
@@ -45,5 +48,10 @@ public class LogUtil {
             var5.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void log(@NonNull String message) {
+        Log.d("HttpLogInfo", message);
     }
 }

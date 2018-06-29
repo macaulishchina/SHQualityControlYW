@@ -16,7 +16,7 @@ class AddOrUpdate_Picture_Activity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_picture_activity)
+        setContentView(R.layout.activity_add_picture)
         Log.i("hyd","successfully launch AddOrUpdate_Picture_Activity with guid: ${intent.getStringExtra("rowGuid")}")
         Toast.makeText(this,"guid=${intent.getStringExtra("rowGuid")}",Toast.LENGTH_LONG).show()
         mButtonAddPic?.onClick {

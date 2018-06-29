@@ -1,8 +1,11 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl
 
 import android.util.Log
+import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
 import com.sinoyd.Code.Until.HttpListener
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
+import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -22,19 +25,24 @@ class Networkrequestmodel {
     }
 
     var parameter = HashMap<String, String>()
+
     var parameterrul = ""
     var tag = ""
     var url = ""
+    var file : File? = null
     var Method = ""
     var okHttpClient = OkHttpClient()
 
     init {
         parameter = HashMap()
         parameterrul = ""
+        val logInterceptor = HttpLoggingInterceptor(LogUtil())
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY;
         okHttpClient = OkHttpClient.Builder()
                 .connectTimeout(40, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(logInterceptor)
                 .build()
         Log.i("scj", "请求开始ing>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     }
@@ -54,17 +62,28 @@ class Networkrequestmodel {
         return this
     }
 
+    fun setFile(file:File) :Networkrequestmodel{
+        this.file = file
+        return this
+    }
+
     fun addparam(key: String, value: String): Networkrequestmodel {
         parameter.put(key, value)
         return this
     }
 
 
+    private fun addPostParameter(requestBody: MultipartBody.Builder) {
+        for (item in parameter) {
+            requestBody.addFormDataPart(item.key,item.value)
+        }
+    }
     private fun setparameter() {
         for (item in parameter) {
             parameterrul += "&${item.key}=" + item.value
         }
     }
+
 
     fun start(listener: HttpListener) {
         var request: Request? = null
@@ -84,14 +103,17 @@ class Networkrequestmodel {
             }
         //Post请求方式
             POSTREQUEST -> {
-                var formBody = FormBody.Builder()
-                //设置参数名称和参数值
-                for (item in parameter) {
-                    formBody.add(item.key, item.value)
-                }
+                val requestBody = MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        if(this.file != null){      //如果上传包含图片
+                            val fileBody = RequestBody.create(MediaType.parse("image/jpeg"),file)
+                            requestBody.addFormDataPart("file", file!!.name,fileBody)
+                            requestBody.addFormDataPart("fileType","jpg")
+                        }
+                        addPostParameter(requestBody)
                 request = Request.Builder()
                         .url(url)
-                        .post(formBody.build())
+                        .post(requestBody.build())
                         .build()
             }
         }

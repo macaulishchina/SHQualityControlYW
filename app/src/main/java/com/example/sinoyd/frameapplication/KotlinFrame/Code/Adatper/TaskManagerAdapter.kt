@@ -40,7 +40,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         }
 
         //部署数据
-        holder.number.text = list[p0].id.toString() //任务编号
+        holder.number.text = list[p0].taskCode.toString() //任务编号
         holder.stationname.text = list[p0].pointName.toString()  //站点名称
         holder.taskname.text = list[p0].taskName.toString()  //任务名称
 
@@ -50,11 +50,12 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         holder.endtime.text = list[p0].endTime.toString()  //结束时间
         holder.taskstatus.text = list[p0].taskStatusName.toString() //任务状态
 
+
         //是否包含图片，显示不同
         if((con as Task_management_Activity).containPicture(list[p0].rowGuid)){
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.uploadyes_bt_bg_color)
             holder.addpic.text = "查看图片"
-        }else{
+        }else if(list[p0].upload){
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.btn_bg_gray)
             holder.addpic.text = "添加图片"
         }

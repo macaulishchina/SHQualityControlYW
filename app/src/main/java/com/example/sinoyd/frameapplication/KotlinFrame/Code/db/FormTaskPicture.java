@@ -1,13 +1,10 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.db;
 
 
-import org.xutils.DbManager;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
-import org.xutils.ex.DbException;
 
 import java.sql.Blob;
-import java.util.List;
 
 /**
  * 作者： hyd
@@ -18,14 +15,24 @@ import java.util.List;
 
 @Table(name = "FormTaskPicture")
 public class FormTaskPicture {
+
+    //任务编号(TaskCode)  点位(PointId) 运维人员 上传时间  分类名称
     @Column(name = "id", isId = true)
     private int id;
     @Column(name = "RowGuid")
     private String RowGuid = "";
-    @Column(name = "TaskGuid")
-    private String TaskGuid = "";
+    @Column(name = "TaskCode")
+    private String TaskCode = "";
+    @Column(name = "PointId")
+    private int PointId;
+    @Column(name = "Username")
+    private String Username = "";
+    @Column(name = "TakeTime")
+    private String TakeTime ="";
+    @Column(name = "Cate")
+    private String Cate = "";
     @Column(name = "Picture")
-    private Blob Picture;
+    private Blob Picture = null;
 
     public int getId() {
         return id;
@@ -43,12 +50,20 @@ public class FormTaskPicture {
         RowGuid = rowGuid;
     }
 
-    public String getTaskGuid() {
-        return TaskGuid;
+    public String getTaskCode() {
+        return TaskCode;
     }
 
-    public void setTaskGuid(String taskGuid) {
-        TaskGuid = taskGuid;
+    public void setTaskCode(String taskCode) {
+        TaskCode = taskCode;
+    }
+
+    public int getPointId() {
+        return PointId;
+    }
+
+    public void setPointId(int pointId) {
+        PointId = pointId;
     }
 
     public Blob getPicture() {
@@ -57,5 +72,29 @@ public class FormTaskPicture {
 
     public void setPicture(Blob picture) {
         Picture = picture;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getTakeTime() {
+        return TakeTime;
+    }
+
+    public void setTakeTime(String takeTime) {
+        TakeTime = takeTime;
+    }
+
+    public String getCate() {
+        return Cate;
+    }
+
+    public void setCate(String cate) {
+        Cate = cate;
     }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/icon_bg2"
+    android:orientation="vertical"
+    tools:context="com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.New_Realsample_comparison_Activity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@mipmap/form_title_bg">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="添加图片"
+            android:textColor="@color/textblue"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@+id/tv_exit"
+            android:background="@drawable/login_bt_bg_color"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tv_exit"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/login_bt_bg_color"
+            android:gravity="center"
+            android:text="退出"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+
+    <include layout="@layout/view_add_picture"/>
+
+</LinearLayout>

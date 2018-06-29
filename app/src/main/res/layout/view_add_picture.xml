@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@color/searchbg">
+
+    <!--站房环境-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@drawable/transparent"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:text="站房环境"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_add_1"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:background="@drawable/login_bt_bg_color"
+                android:text="添加图片"
+                android:textColor="#FFF" />
+
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/lv_attach_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/transparent" />
+    <!--仪器数据-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:text="仪器数据"
+                android:background="@drawable/transparent"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:layout_width="0dp"
+                android:paddingStart="20dp" />
+            <Button
+                android:id="@+id/btn_add_2"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="添加图片"
+                android:background="@drawable/login_bt_bg_color"
+                android:textColor="#FFF"/>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/lv_attach_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
