@@ -52,7 +52,11 @@
             android:textColor="#fff" />
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/view_add_picture"/>
+    </ScrollView>
 
-    <include layout="@layout/view_add_picture"/>
 
 </LinearLayout>

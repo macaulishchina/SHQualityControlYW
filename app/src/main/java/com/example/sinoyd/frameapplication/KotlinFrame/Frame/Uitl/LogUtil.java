@@ -1,7 +1,9 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;

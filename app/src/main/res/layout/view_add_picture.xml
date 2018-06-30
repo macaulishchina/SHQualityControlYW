@@ -14,7 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/shape_ed_bold">
 
             <TextView
                 android:layout_width="0dp"
@@ -29,6 +30,7 @@
                 android:textSize="20sp" />
 
             <Button
+                android:tag="仪器数据"
                 android:id="@+id/btn_add_1"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
@@ -39,20 +41,18 @@
 
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/lv_attach_1"
+        <com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.HorizontalListView
+            android:id="@+id/lv_picture_container_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_ed_bold"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/transparent" />
     <!--仪器数据-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/shape_ed_bold">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -69,6 +69,7 @@
                 android:layout_width="0dp"
                 android:paddingStart="20dp" />
             <Button
+                android:tag="仪器数据"
                 android:id="@+id/btn_add_2"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
@@ -77,10 +78,11 @@
                 android:textColor="#FFF"/>
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/lv_attach_2"
+        <com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.HorizontalListView
+            android:id="@+id/lv_picture_container_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_ed_bold"/>
     </LinearLayout>
 
 

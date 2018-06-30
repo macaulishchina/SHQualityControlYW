@@ -19,6 +19,10 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.net.URLEncoder
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.SystemUtil
+import com.example.sinoyd.frameapplication.R.id.ed_middle
+import com.example.sinoyd.frameapplication.R.id.et_password
+import java.util.*
+import java.util.UUID.randomUUID
 
 
 class LoginActivity : BaseActivity() {
@@ -55,11 +59,26 @@ class LoginActivity : BaseActivity() {
                 toast("账号密码不允许为空")
             } else {
                 if (JudgNetwork(this)) {
+                    localLogin()
                     sendlogin()
                 } else {
                     toast("当前网络故障或无网络")
                 }
             }
+        }
+    }
+
+    /**
+     * 无网络时本地登入用
+     */
+    private fun localLogin(){
+        if(LoginId == "？local"&&Password == "123456"){
+            SharedPreferencesFactory.savedata(this, "LoginId", LoginId)
+            SharedPreferencesFactory.savedata(this, "Password", Password)
+            SharedPreferencesFactory.savedata(this, "RowGuid", UUID.fromString("81be15c0-1fc5-4d69-9ecf-2a41fcf174fc").toString())
+            SharedPreferencesFactory.savedata(this, "DisplayName", "本地账号")
+            startActivity<MainActivity>()
+            finish()
         }
     }
 

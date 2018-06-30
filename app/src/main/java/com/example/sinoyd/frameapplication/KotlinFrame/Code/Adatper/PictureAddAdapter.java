@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture;
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Adapter.BaseAdapter;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,14 +20,17 @@ import java.util.List;
 
 public class PictureAddAdapter extends BaseAdapter {
 
+    private List<FormTaskPicture> mPictures;
 
-
-    public PictureAddAdapter(@NotNull Context context, @NotNull List data) {
+    public PictureAddAdapter(@NotNull Context context, @NotNull List<FormTaskPicture> data) {
         super(context, data);
+        mPictures = data;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         return null;
     }
+
+
 }
