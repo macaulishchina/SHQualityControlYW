@@ -1,10 +1,13 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.*
+import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat
+import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.TaskManagerAdapter
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.Up
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask
@@ -18,6 +21,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Instrument
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.StandardSolutionChange
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonFormTask
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonweekFormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.Jsonxingnengkaohe
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
@@ -25,6 +29,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequest
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.google.gson.Gson
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
 import com.sinoyd.Code.Until.showdialog
@@ -34,12 +39,21 @@ import org.jetbrains.anko.act
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.json.JSONArray
+import org.json.JSONObject
 import org.xutils.DbManager
 import org.xutils.x
+import top.zibin.luban.Luban
+import top.zibin.luban.OnCompressListener
+import java.io.File
 
 
 /**任务管理**/
 class Task_management_Activity : BaseActivity() {
+
+
+    private val WRITE_PERMISSION = 0x01
+
     //数据库
     var myapplication: Myapplication = Myapplication()
     var db: DbManager? = null
@@ -55,17 +69,23 @@ class Task_management_Activity : BaseActivity() {
                 1 -> {
                     getdata4sqlite()
                 }
+                2 -> {
+
+                }
             }
             super.handleMessage(msg)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_management_)
         db = x.getDb(myapplication.getDaoConfig())
         //设置监听
         setlisteners()
+        requestWritePermission()
+
     }
 
     override fun onResume() {
@@ -126,6 +146,14 @@ class Task_management_Activity : BaseActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+            "PicUp" ->{
+                //val up = gson.fromJson(responsestr,Up::class.java)
+                val message = Message()
+                message.what = 2
+                myHandler.sendMessage(message)
+                Looper.prepare()
+                Looper.loop()
             }
             "PerforUp" -> {
 
@@ -198,8 +226,51 @@ class Task_management_Activity : BaseActivity() {
      * 判断这条记录本地是否有待上传图片
      */
     fun containPicture(guid : String):Boolean{
-        val res = db!!.selector(FormTaskPicture::class.java).where("RowGuid", "=", guid).findAll()
+        val res = db!!.selector(FormTaskPicture::class.java).where("TaskGuid", "=", guid).findAll()
         return !(res == null || res.isEmpty())
+    }
+
+    /**
+     * 上传与任务相关的所有本地图片
+     */
+    fun uploadPictures(taskGuid:String){
+        var jsonTaskPictures = getTaskPicturesJson(taskGuid)
+
+        for(item in jsonTaskPictures){
+            val request = Networkrequestmodel()
+                    .setMethod(Networkrequestmodel.POSTREQUEST)
+                    .settag("PicUp")
+                    .seturl(Networkrequestaddress.URL_PicUp)
+                    .addparam("json",item)
+            val json = Gson()
+            Log.i("hyd","上传图片附带json数据=$item")
+            var localPath = JSONObject(item).getJSONObject("picture").getString("LocalCachePath")
+            localPath = localPath.substring(7,localPath.length-1)
+            val file = File(localPath)
+            Log.i("hyd","file path = $localPath 文件是否存在：${file.exists()}")
+            if(file.exists()){
+                request.file = file
+                Luban.with(this)
+                        .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
+                        .ignoreBy(1024)
+                        .setCompressListener(object : OnCompressListener {
+                            override fun onSuccess(file: File?) {
+                                Log.i("hyd","文件${file!!.name}压缩完成")
+                                Log.i("hyd","开始发送文件${file.name}")
+                                request.start(this@Task_management_Activity)
+                            }
+
+                            override fun onError(e: Throwable?) {
+                                Log.i("hyd","文件${file.name}压缩失败")
+                            }
+
+                            override fun onStart() {
+                                Log.i("hyd","开始压缩文件${file.name}")
+                            }
+
+                        }).launch()
+            }
+        }
     }
 
 
@@ -340,5 +411,42 @@ class Task_management_Activity : BaseActivity() {
         return jso
     }
 
+    private fun getTaskPicturesJson(guid:String):MutableList<String>{
+        var json:MutableList<String> = mutableListOf()
+        var taskPictures :MutableList<FormTaskPicture>? = mutableListOf()
+        try {
+            taskPictures = db!!.selector(FormTaskPicture::class.java).where("TaskGuid", "=", guid).findAll()
+            Log.i("scj", "数据库取任务成功【FormTaskPicture】")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.i("scj", "数据库取任务失败【FormTaskPicture】" + e.message)
+        }
+        if (taskPictures != null) {
+            for (item in taskPictures) {
+                val jsonTaskPicture = JsonTaskPicture()
+                jsonTaskPicture.picture = item
+                json.add(jsonTaskPicture.toString())
+            }
+        }
+        return json
+    }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == WRITE_PERMISSION){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("hyd", "Write Permission Failed")
+                Toast.makeText(this, "You must allow permission write external storage to your mobile device.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun requestWritePermission(){
+        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),WRITE_PERMISSION)
+        }
+    }
 }

@@ -1,30 +1,33 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 
+import android.Manifest
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ContentUris
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.support.annotation.RequiresApi
+import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.PictureAddAdapter
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Action.FrmUploadAction
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.DateUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.ToastUtil
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.UriToFilePath
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.FrmActionSheet
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
-import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil.getImagePath
 import com.example.sinoyd.frameapplication.R
-import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
-import com.sinoyd.environmentsz.Kotlin.getTime2String
 import com.sinoyd.environmentsz.Kotlin.getToday
 import kotlinx.android.synthetic.main.activity_add_picture.*
 import kotlinx.android.synthetic.main.view_add_picture.*
@@ -32,10 +35,12 @@ import org.jetbrains.anko.onClick
 import org.xutils.DbManager
 import org.xutils.db.sqlite.WhereBuilder
 import org.xutils.x
+import top.zibin.luban.OnCompressListener
 import java.io.File
 import java.util.*
 
 class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClickListener {
+
 
     companion object {
         val  PICTURE_CATE_1 = "站房环境"
@@ -52,9 +57,9 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
     //数据库
     var myapplication: Myapplication = Myapplication()
     var db: DbManager? = null
-
     var file: File? = null
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_picture)
@@ -86,8 +91,8 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
             ToastUtil.showShort(this, "错误：无法获取到任务")
             finish()
         } else {
+            Log.i("hyd","本地图片有${mPictures!!.size}张")
             mPictureTemplete.pointId = formTask.pointId
-            mPictureTemplete.picture = null
             mPictureTemplete.cate = "未分类"
             mPictureTemplete.taskCode = formTask.taskCode
             mPictureTemplete.taskGuid = formTask.rowGuid
@@ -135,7 +140,7 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
             }
         }
         tv_exit.onClick {
-            tv_save.performClick()
+            //tv_save.performClick()
             finish()
         }
         /**
@@ -185,7 +190,8 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
                 }
             FrmUploadAction.OpenPhoto_REQUESTCODE ->
                 if (resultCode == Activity.RESULT_OK) {
-                    val path = getImagePath(data!!)
+                    Log.i("hyd","URI = ${data.data}")
+                    val path = "file://"+UriToFilePath.getPath(this,data.data)
                     addPicture(path)
                     Log.i("hyd","从相册获得照片：完整路径为=$path")
                 }
@@ -197,12 +203,13 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
      * 保存图片
      */
     fun savePictures(){
-        db!!.delete(FormTaskPicture::class.java, WhereBuilder.b("TaskGuid","=",mTaskGuid))
+        val now = Date().getToday("yyyy/MM/dd HH:mm:ss")
+        db!!.delete(FormTaskPicture::class.java, WhereBuilder.b("TaskGuid","=",mTaskGuid).and(WhereBuilder.b("TakeTime","<",now)))
         for(item in mPictures!!){
             item.rowGuid = UUID.randomUUID().toString()
-            item.takeTime = Date().getToday("yyyy/MM/dd HH:mm:ss")
+            item.takeTime = now
         }
-        db!!.saveOrUpdate(mPictures)
+        db!!.save(mPictures)
     }
 
 
@@ -261,47 +268,8 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
         setView()
     }
 
-    /**
-     * 从data中解析出图片路径
-     * 例子：file:///storage/emulated/0/DCIM/Camera/1528269552327.jpg
-     */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private fun getImagePath(data: Intent):String?{
-        val uri = data.data
-        var path:String? = null
-        if (Build.VERSION.SDK_INT > 19) {
-            //4.4以上系统使用这个方法处理图片
-            path = FileUtil.getImagePath(this, uri, null)
-            path = "file://$path"
 
-        } else if (Build.VERSION.SDK_INT == 19){
-            path = data.data.toString()
-        }
 
-        return path
-    }
-
-    /**
-     * 压缩图片到 size KB以下大小
-     */
-    private fun compressPicture(size: Int) {
-//        top.zibin.luban.Luban.with(this)
-//                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
-//                .ignoreBy(size)
-//                .setCompressListener(object : OnCompressListener {
-//                    override fun onSuccess(file: File?) {
-//
-//                    }
-//
-//                    override fun onError(e: Throwable?) {
-//                    }
-//
-//                    override fun onStart() {
-//                    }
-//
-//                })
-//                .launch()
-    }
 
 
 }

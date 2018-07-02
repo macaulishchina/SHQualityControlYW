@@ -35,8 +35,6 @@ public class FormTaskPicture {
     private String UploadTime ="";
     @Column(name = "Cate")
     private String Cate = "";
-    @Column(name = "Picture")
-    private Blob Picture = null;
     @Column(name = "CachePath")
     private String LocalCachePath;
 
@@ -78,14 +76,6 @@ public class FormTaskPicture {
 
     public void setPointId(int pointId) {
         PointId = pointId;
-    }
-
-    public Blob getPicture() {
-        return Picture;
-    }
-
-    public void setPicture(Blob picture) {
-        Picture = picture;
     }
 
     public String getUsername() {

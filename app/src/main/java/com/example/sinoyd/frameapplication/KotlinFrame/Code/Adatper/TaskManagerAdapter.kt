@@ -55,7 +55,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
         if((con as Task_management_Activity).containPicture(list[p0].rowGuid)){
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.uploadyes_bt_bg_color)
             holder.addpic.text = "查看图片"
-        }else if(list[p0].upload){
+        }else{
             holder.addpic.backgroundDrawable = con.resources.getDrawable(R.drawable.btn_bg_gray)
             holder.addpic.text = "添加图片"
         }
@@ -88,6 +88,7 @@ class TaskManagerAdapter(var con: Context, var list: MutableList<FormTask>) : Ba
 
         //上传
         holder.upload.onClick {
+            (con as Task_management_Activity).uploadPictures(list[p0].rowGuid)
             when (list[p0].formCode) {
                 "XingNengKH" -> {
                     (con as Task_management_Activity).upload2(list[p0].formCode, list[p0].rowGuid, list[p0].pointId)

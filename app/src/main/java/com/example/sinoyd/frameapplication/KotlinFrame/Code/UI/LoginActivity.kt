@@ -72,7 +72,7 @@ class LoginActivity : BaseActivity() {
      * 无网络时本地登入用
      */
     private fun localLogin(){
-        if(LoginId == "？local"&&Password == "123456"){
+        if(LoginId == "?local"&&Password == "123456"){
             SharedPreferencesFactory.savedata(this, "LoginId", LoginId)
             SharedPreferencesFactory.savedata(this, "Password", Password)
             SharedPreferencesFactory.savedata(this, "RowGuid", UUID.fromString("81be15c0-1fc5-4d69-9ecf-2a41fcf174fc").toString())
