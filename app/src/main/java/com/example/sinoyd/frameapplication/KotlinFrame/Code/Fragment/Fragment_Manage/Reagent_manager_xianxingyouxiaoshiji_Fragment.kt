@@ -42,7 +42,7 @@ class Reagent_manager_xianxingyouxiaoshiji_Fragment(var rowGuid: String) : Fragm
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //设置监听
         setlisteners()
@@ -60,7 +60,7 @@ class Reagent_manager_xianxingyouxiaoshiji_Fragment(var rowGuid: String) : Fragm
             //显示界面
             refreshview(currLingDiandata)
         } else {
-            activity.toast("没有对应仪器")
+            activity!!.toast("没有对应仪器")
         }
     }
 
@@ -262,7 +262,7 @@ class Reagent_manager_xianxingyouxiaoshiji_Fragment(var rowGuid: String) : Fragm
     private fun setlisteners() {
         //仪器选择
         ll_yiqi.onClick {
-            var comm = CommonSelectorLingDian(activity, LingDianDatalsit, object : CommonSelectorLingDian.OnSelectClickListener {
+            var comm = CommonSelectorLingDian(activity!!, LingDianDatalsit, object : CommonSelectorLingDian.OnSelectClickListener {
                 override fun onCommonItemSelect(postions: Int) {
                     currLingDiandata = LingDianDatalsit[postions]
                     tv_curremt_yiqi!!.text = LingDianDatalsit[postions].instrumentName
@@ -421,10 +421,10 @@ class Reagent_manager_xianxingyouxiaoshiji_Fragment(var rowGuid: String) : Fragm
 
             try {
                 db!!.update(currLingDiandata)
-                activity.toast("保存成功")
+                activity!!.toast("保存成功")
                 Log.i("scj", "保存零点表成功")
             } catch (e: Exception) {
-                activity.toast("保存失败")
+                activity!!.toast("保存失败")
                 Log.i("scj", "保存零点表失败")
                 e.printStackTrace()
             }

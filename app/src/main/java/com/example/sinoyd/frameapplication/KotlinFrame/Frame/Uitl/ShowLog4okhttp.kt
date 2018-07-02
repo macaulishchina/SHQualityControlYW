@@ -26,7 +26,7 @@ class ShowLog4okhttp(var name: String) {
         Log.d(name, "Message:  " + response.message())
         Log.d(name, "Code:  " + response.code())
         Log.d(name, "Protocol:  " + response.protocol())
-        Log.d(name, "ContentType:  " + response.body().contentType())
+        Log.d(name, "ContentType:  " + response.body()!!.contentType())
         return this
     }
 

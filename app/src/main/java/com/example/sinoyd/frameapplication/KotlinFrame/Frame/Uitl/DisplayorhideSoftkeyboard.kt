@@ -21,8 +21,8 @@ object DisplayorhideSoftkeyboard {
     }
 
     /***隐藏软键盘 */
-    fun hideSoftkeyboard(context: Activity) {
-        context.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+    fun hideSoftkeyboard(context: Activity?) {
+        context?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
 
 }

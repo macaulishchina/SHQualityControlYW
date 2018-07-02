@@ -35,7 +35,7 @@ class Reductant_manager_biaoyepeizhi_Fragment : Fragment() {
     private fun setlisteners(conview: View) {
         //仪器类型
         conview.optype.onClick {
-            var comm = CommonSelector(activity, listoptype, object : CommonSelector.OnSelectClickListener {
+            var comm = CommonSelector(activity!!, listoptype, object : CommonSelector.OnSelectClickListener {
                 override fun onCommonItemSelect(postions: Int) {
                     tvoptype.text = listoptype[postions].namevalue
                     if (listoptype[postions].namevalue == "标准溶液") {

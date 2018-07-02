@@ -12,7 +12,7 @@ open class BaseFragment : Fragment(), HttpListener {
     var responsestr = ""
 
     override fun requestSuccess(response: Response, TAG: String) {
-        responsestr = response.body().string()
+        responsestr = response.body()!!.string()
         ShowLog4okhttp("scj").printinfo(response).printJson(responsestr)
     }
 
@@ -21,7 +21,7 @@ open class BaseFragment : Fragment(), HttpListener {
     }
 
     override fun requestFailed(response: Response) {
-        responsestr = response.body().string()
+        responsestr = response.body()!!.string()
         ShowLog4okhttp("scj").printinfo(response).printJson(responsestr)
     }
 

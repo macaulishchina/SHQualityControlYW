@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <files-path name="yd_files" path="images/"/>
+        <cache-path name="yd_cache" path="images/" />
+        <external-files-path name="external-files-path" path="images/" />
+        <external-path name="yd_external_path" path="images/" />
+    </paths>
+</resources>

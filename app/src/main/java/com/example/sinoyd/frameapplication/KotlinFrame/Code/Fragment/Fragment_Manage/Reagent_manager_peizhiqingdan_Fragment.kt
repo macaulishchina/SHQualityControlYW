@@ -41,7 +41,7 @@ class Reagent_manager_peizhiqingdan_Fragment(var rowGuid: String) : Fragment() {
         return conview
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //设置监听事件
         setlisteners()
@@ -57,7 +57,7 @@ class Reagent_manager_peizhiqingdan_Fragment(var rowGuid: String) : Fragment() {
             tv_curremt_yinzi!!.text = currbiaozhun.pollutantName
             refreshview(currbiaozhun)
         } else {
-            activity.toast("没有对应仪器")
+            activity!!.toast("没有对应仪器")
         }
     }
 
@@ -118,10 +118,10 @@ class Reagent_manager_peizhiqingdan_Fragment(var rowGuid: String) : Fragment() {
 
             try {
                 db!!.update(currbiaozhun)
-                activity.toast("保存成功")
+                activity!!.toast("保存成功")
                 Log.i("scj", "保存检标准曲线表成功")
             } catch (e: Exception) {
-                activity.toast("保存失败")
+                activity!!.toast("保存失败")
                 Log.i("scj", "保存检标准曲线表失败")
                 e.printStackTrace()
             }

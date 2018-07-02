@@ -1,6 +1,8 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Uitl
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.os.Environment
 import android.util.Log
 
@@ -8,6 +10,9 @@ import java.io.File
 import java.io.IOException
 import java.sql.Timestamp
 import java.text.DecimalFormat
+import android.provider.MediaStore
+
+
 
 /**
  * 文件工具类 Copyright (c) 2015
@@ -126,5 +131,22 @@ object FileUtil {
             fileSizeString = df.format(fileSize.toDouble() / 1073741824) + "G"
         }
         return fileSizeString
+    }
+
+    /**
+     * 根据URI获得文件路径
+     */
+    @SuppressLint("Recycle")
+    fun getImagePath(context: Context, uri: Uri, selection: String?): String? {
+        var path: String? = null
+        //通过Uri和selection来获取真实的图片路径
+        val cursor = context.contentResolver.query(uri, null, selection, null, null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+            }
+            cursor.close()
+        }
+        return path
     }
 }

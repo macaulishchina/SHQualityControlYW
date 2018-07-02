@@ -21,7 +21,7 @@ open class BaseUpdate(var con: Context) : HttpListener {
         con.runOnUiThread {
             showdialog(con, "下载", "loadsuccess", "")
         }
-        responsestr = response.body().string()
+        responsestr = response.body()!!.string()
         ShowLog4okhttp("scj").printinfo(response).printJson(responsestr)
     }
 
@@ -29,7 +29,7 @@ open class BaseUpdate(var con: Context) : HttpListener {
         con.runOnUiThread {
             showdialog(con, "下载", "loadfail", "")
         }
-        ShowLog4okhttp("scj").printinfo(response).printJson(response.body().string())
+        ShowLog4okhttp("scj").printinfo(response).printJson(response.body()!!.string())
     }
 
     override fun onFailure(call: Call) {

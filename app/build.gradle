@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
 //1，声明添加的插件类型
 //apply plugin: 'org.greenrobot.greendao'
 android {
@@ -41,7 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
@@ -59,4 +60,6 @@ dependencies {
     implementation 'com.github.ForgetAll:LoadingDialog:v1.0.4'
 //    compile 'org.greenrobot:greendao:3.2.2'
     implementation 'org.xutils:xutils:3.5.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }

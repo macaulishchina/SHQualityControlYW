@@ -25,7 +25,15 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="d8e85c8d22f41a0c92475d592dca45b0" />
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.sinoyd.frameapplication.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <activity android:name=".KotlinFrame.Code.UI.LoginActivity">
             <intent-filter>
@@ -45,7 +53,7 @@
         <activity android:name=".KotlinFrame.UI.TimeDialogdemoActivity" />
         <activity android:name=".KotlinFrame.Code.UI.MainActivity" />
         <activity android:name=".KotlinFrame.Code.UI.Sign_in_Activity" />
-        <activity android:name=".KotlinFrame.Code.UI.AddOrUpdate_Picture_Activity"/>
+        <activity android:name=".KotlinFrame.Code.UI.AddOrUpdate_Picture_Activity" />
         <activity
             android:name=".KotlinFrame.Code.UI.ScanActivity"
             android:screenOrientation="landscape" />

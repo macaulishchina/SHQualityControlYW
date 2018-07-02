@@ -6,15 +6,20 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.AddOrUpdate_Picture_Activity;
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.DateUtil;
 import com.example.sinoyd.frameapplication.R;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * 作者： 王一凡
@@ -50,12 +55,42 @@ public class FrmUploadAction {
         }
     }
 
+    public static void openCamera(Activity activity,File file,String providerAuthority){
+        Uri uri;
+        try {
+            if (Build.VERSION.SDK_INT >= 24){
+                uri = FileProvider.getUriForFile(activity, providerAuthority,file);
+            }else {
+                uri = Uri.fromFile(file);
+            }
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            activity.startActivityForResult(intent, OpenCamera_REQUESTCODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
     /**
      * 通过手机相册获取图片
      * @param activity
      */
     public static void openPic(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(intent, OpenPhoto_REQUESTCODE);
+    }
+
+    /**
+     * 通过手机相册获取图片
+     * @param activity
+     * @param type 指定图片类型 例如： image/jpeg、image/png、image/*等
+     */
+    public static void openPic(Activity activity,String type) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,type);
         activity.startActivityForResult(intent, OpenPhoto_REQUESTCODE);
     }
 

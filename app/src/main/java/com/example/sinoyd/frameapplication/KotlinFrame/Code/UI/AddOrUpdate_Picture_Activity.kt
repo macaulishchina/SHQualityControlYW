@@ -1,118 +1,157 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 
+import android.annotation.TargetApi
 import android.app.Activity
-import android.app.PendingIntent.getActivity
+import android.content.ContentUris
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
-import android.widget.Button
-import android.widget.Toast
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.PictureAddAdapter
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Action.FrmUploadAction
-import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Mode.FrmAttachments
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.DateUtil
-import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.LogUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.ToastUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.FrmActionSheet
-import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.HorizontalListView
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
+import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
+import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil.getImagePath
 import com.example.sinoyd.frameapplication.R
-import com.example.sinoyd.frameapplication.R.id.lv_picture_container_1
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.sinoyd.environmentsz.Kotlin.getTime2String
+import com.sinoyd.environmentsz.Kotlin.getToday
 import kotlinx.android.synthetic.main.activity_add_picture.*
 import kotlinx.android.synthetic.main.view_add_picture.*
-import org.jetbrains.anko.find
 import org.jetbrains.anko.onClick
 import org.xutils.DbManager
+import org.xutils.db.sqlite.WhereBuilder
 import org.xutils.x
 import java.io.File
-import java.io.FileOutputStream
-import java.math.BigDecimal
 import java.util.*
-import kotlin.collections.ArrayList
+
+class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClickListener {
+
+    companion object {
+        val  PICTURE_CATE_1 = "站房环境"
+        val  PICTURE_CATE_2 = "仪器数据"
+        val  PICTURE_CATE_0 = "所有"
+        const val PROVIDER_AUTHORITY = "com.example.sinoyd.frameapplication.fileprovider"
+    }
 
 
-class AddOrUpdate_Picture_Activity : BaseActivity(),FrmActionSheet.MenuItemClickListener{
+    val mPictureTemplete: FormTaskPicture = FormTaskPicture()
+    var mPictures: MutableList<FormTaskPicture>? = mutableListOf()
+    var mTaskGuid: String? = null
 
-    var mPicAdapter: PictureAddAdapter? = null
-    var mPictures: List<FormTaskPicture>? = null
-    val mButtonAddPic: Button? = null
-    var mTaskGuid:String? = null
     //数据库
     var myapplication: Myapplication = Myapplication()
     var db: DbManager? = null
 
     var file: File? = null
-    var files: MutableList<FrmAttachments>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_picture)
-        
-        db = x.getDb(myapplication.getDaoConfig())
-        
-        mTaskGuid = intent.getStringExtra("rowGuid")
 
-        if(mTaskGuid != null) {
-            Log.i("hyd","successfully launch AddOrUpdate_Picture_Activity with guid: ${intent.getStringExtra("rowGuid")}")
+        db = x.getDb(myapplication.getDaoConfig())
+
+        mTaskGuid = intent.getStringExtra("RowGuid")
+
+        if (mTaskGuid != null) {
+            Log.i("hyd", "successfully launch AddOrUpdate_Picture_Activity with guid: ${intent.getStringExtra("RowGuid")}")
             initView()
-        }else{
-            ToastUtil.showShort(this,"错误：无法获取到任务")
+        } else {
+            ToastUtil.showShort(this, "错误：无法获取到任务")
             finish()
         }
     }
-    
-    private fun initView(){
+
+    private fun initView() {
         loadData()
         setOnClickListener()
         setView()
     }
-    
-    private fun loadData(){
-        mPictures = db!!.selector(FormTaskPicture::class.java).where("RowGuid", "=", mTaskGuid).findAll()
-        if(mPictures == null) mPictures = ArrayList()
+
+    private fun loadData() {
+        mPictures = db!!.selector(FormTaskPicture::class.java).where("TaskGuid", "=", mTaskGuid).findAll()
+        if (mPictures == null) mPictures = mutableListOf()
+        val formTask = db!!.selector(FormTask::class.java).where("RowGuid", "=", mTaskGuid).findFirst()
+        if (formTask == null) {
+            ToastUtil.showShort(this, "错误：无法获取到任务")
+            finish()
+        } else {
+            mPictureTemplete.pointId = formTask.pointId
+            mPictureTemplete.picture = null
+            mPictureTemplete.cate = "未分类"
+            mPictureTemplete.taskCode = formTask.taskCode
+            mPictureTemplete.taskGuid = formTask.rowGuid
+            mPictureTemplete.username = formTask.username
+        }
     }
 
-    private fun setView(){
-        mPicAdapter = PictureAddAdapter(this, mPictures!!)
-        lv_picture_container_1.adapter = mPicAdapter
-        lv_picture_container_2.adapter = mPicAdapter
-    }
+    private fun setView() {
+        val pictures1 = mutableListOf<FormTaskPicture>()
+        val pictures2 = mutableListOf<FormTaskPicture>()
+        /**
+         * 不同分类使用不同的适配器，依据cate区分
+         */
 
-
-
-    private fun setOnClickListener(){
-        tv_save.onClick {
-            try{
-                db!!.saveOrUpdate(mPictures)
-                ToastUtil.showShort(this,"保存成功")
-                Log.i("hyd","保存图片成功")
-            }catch (e:Exception){
-                ToastUtil.showShort(this,"保存失败")
-                Log.i("hyd","保存图片失败")
+        for(item in mPictures!!){
+            when(item.cate){
+                PICTURE_CATE_1 ->{
+                    //Log.i("hyd","add picture ${item.localCachePath} to cate"+PICTURE_CATE_1)
+                    pictures1.add(item)
+                }
+                PICTURE_CATE_2 ->{
+                    //Log.i("hyd","add picture ${item.localCachePath} to cate"+PICTURE_CATE_2)
+                    pictures2.add(item)
+                }
+                else ->{
+                    //Log.i("hyd","add picture ${item.localCachePath} to cate none")
+                }
             }
         }
-        tv_exit.onClick { 
+
+        lv_picture_container_1.adapter = PictureAddAdapter(this,pictures1)
+        lv_picture_container_2.adapter = PictureAddAdapter(this,pictures2)
+    }
+
+
+    private fun setOnClickListener() {
+        tv_save.onClick {
+            try {
+                savePictures()
+                ToastUtil.showShort(this, "保存成功")
+                Log.i("hyd", "保存图片成功")
+            } catch (e: Exception) {
+                ToastUtil.showShort(this, "保存失败")
+                Log.i("hyd", "保存图片失败")
+            }
+        }
+        tv_exit.onClick {
             tv_save.performClick()
             finish()
         }
         /**
-         * 硬编码：以布局为依据，只有两个分类，分类名称保存到按钮的tag信息中
+         * 硬编码：以布局为依据，只有两个分类
          */
         btn_add_1.onClick {
-            launchAddPictureEvent(btn_add_1.tag.toString())
+            launchAddPictureEvent(PICTURE_CATE_1)
         }
         btn_add_2.onClick {
-            launchAddPictureEvent(btn_add_2.tag.toString())
+            launchAddPictureEvent(PICTURE_CATE_2)
         }
 
     }
 
-    private fun launchAddPictureEvent(picCate : String){
+    private fun launchAddPictureEvent(picCate: String) {
+        mPictureTemplete.cate = picCate
         val menuView = FrmActionSheet(this)
         menuView.setCancelButtonTitle("取消")
         menuView.addItems("本地相册", "拍照")
@@ -124,107 +163,145 @@ class AddOrUpdate_Picture_Activity : BaseActivity(),FrmActionSheet.MenuItemClick
     override fun onItemClick(index: Int) {
         when (index) {
             0 ->
-                //ToastUtil.showShort(this,"打开本地相册")
-                FrmUploadAction.openPic(this)
+                FrmUploadAction.openPic(this, "image/jpeg")
             1 -> {
-                ToastUtil.showShort(this,"打开相机")
                 //拍照
-                //file = File(folderPath, DateUtil.convertDate(Date(), "yyyyMMddHHmmss") + ".jpg")
-                //FrmUploadAction.openCamera(this, file)
-            }
-            2 -> {
-                ToastUtil.showShort(this,"测试")
-
-                //
+                file = File(externalCacheDir, "images"+File.separator+DateUtil.convertDate(Date(), "yyyyMMddHHmmss") + ".jpg")
+                FrmUploadAction.openCamera(this, file,PROVIDER_AUTHORITY)
             }
             else -> {
             }
         }
     }
 
-    //添加附件
-    private fun addfile(path: String) {
-        file = File(path)
-        if (file.exists()) {
-            val fileSize = FrmUploadAction.getFileSize(file)//b
-            if (fileSize <= 10 * 1024 * 1024) {
-                val mtemp = FrmAttachments()
-                mtemp.AttachPath = path
-                mtemp.AttFileName = file.getName()
-                val time = DateUtil.convertDate(Date(file.lastModified()), "yyyy-MM-dd HH:mm:ss")
-                mtemp.FileDate = time
-                mtemp.DateTime = time
-                val b1 = BigDecimal(fileSize)
-                val b2 = BigDecimal(1024 * 1024)
-                mtemp.size = b1.divide(b2, 2, BigDecimal.ROUND_HALF_UP).toDouble().toString() + "MB"
-                files.add(mtemp)
-                madapter.notifyDataSetChanged()
-            } else {
-                ToastUtil.showShort(getContext(), "文件大小不可超过10M!")
-            }
-        } else {
-            ToastUtil.showShort(getContext(), "您选择的文件不存在!")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.i("hyd","resultCode$resultCode,resultDate=${data!!.data}")
+        when (requestCode) {
+            FrmUploadAction.OpenCamera_REQUESTCODE ->
+                if (resultCode == Activity.RESULT_OK) {
+                    addPicture(file!!.absolutePath)
+                    Log.i("hyd","从相机获得照片：完整路径为=${file!!.absolutePath}")
+                }
+            FrmUploadAction.OpenPhoto_REQUESTCODE ->
+                if (resultCode == Activity.RESULT_OK) {
+                    val path = getImagePath(data!!)
+                    addPicture(path)
+                    Log.i("hyd","从相册获得照片：完整路径为=$path")
+                }
         }
+        setView()
     }
 
     /**
-     * 对图片进行压缩
-     * @param srcPath
-     * @return
+     * 保存图片
      */
-    fun decodeFile(srcPath: String): String {
-        val options = BitmapFactory.Options()
-        // 获取这个图片的宽和高
-        options.inJustDecodeBounds = true
-        var bitmap = BitmapFactory.decodeFile(srcPath, options) //此时返回bm为空
-
-        var be = options.outWidth / 720
-        if (be < 1) {
-            be = 1
+    fun savePictures(){
+        db!!.delete(FormTaskPicture::class.java, WhereBuilder.b("TaskGuid","=",mTaskGuid))
+        for(item in mPictures!!){
+            item.rowGuid = UUID.randomUUID().toString()
+            item.takeTime = Date().getToday("yyyy/MM/dd HH:mm:ss")
         }
-        options.inJustDecodeBounds = false
-        options.inSampleSize = be
-
-        bitmap = BitmapFactory.decodeFile(srcPath, options)
-        val photoName = DateUtil.convertDate(Date(), "yyyyMMddHHmss") + "s.jpg"
-        val sfullPath = folderPath + "/" + photoName
-        val sfullFile = File(sfullPath)
-
-        try {
-            val out = FileOutputStream(sfullFile)
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)) {
-                out.flush()
-                out.close()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            //删除拍摄照片
-            //IOHelp.deleteFile(new File(srcPath));
-        }
-
-        return sfullPath
+        db!!.saveOrUpdate(mPictures)
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            FrmUploadAction.OpenCamera_REQUESTCODE -> if (resultCode == Activity.RESULT_OK) {
-                addfile(decodeFile(file.getAbsolutePath()))
-            }
-            FrmUploadAction.OpenPhoto_REQUESTCODE -> if (resultCode == Activity.RESULT_OK) {
-                val uri = data.getData()
-                val proj = arrayOf(MediaStore.MediaColumns.DATA)
-                val cursor = managedQuery(uri, proj, null, null, null)
-                if (cursor != null) {
-                    val column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-                    if (cursor.count > 0 && cursor.moveToFirst()) {
-                        val path = cursor.getString(column_index)
-                        addfile(decodeFile(path))
-                    }
+    /**
+     * 删除图片并刷新
+     */
+    fun deletePicture(path :String?){
+        if (TextUtils.isEmpty(path)){
+            ToastUtil.showShort(this,"删除图片错误->文件不存在")
+        }else{
+            val it = mPictures!!.iterator()
+            while (it.hasNext()){
+                val temp = it.next()
+                if(temp.localCachePath == path){
+                    it.remove()
                 }
             }
         }
+        setView()
     }
+
+    /**
+     * 添加图片并刷新
+     * 依据路径进行重复检查
+     */
+    fun addPicture(path: String?) {
+        if(TextUtils.isEmpty(path)){
+            ToastUtil.showShort(this,"添加图片失败->文件不存在")
+        }else if(!path!!.toLowerCase().endsWith(".jpeg") && !path.toLowerCase().endsWith(".jpg")){
+            ToastUtil.showShort(this,"文件类型非法")
+        }else {
+            /*
+            检查是否重复添加图片
+             */
+            var exists = false
+            for(item in mPictures!!){
+                if(item.localCachePath == path) {
+                    exists = true
+                    break
+                }
+            }
+            if(exists){
+                ToastUtil.showShort(this,"您已经添加这张图片")
+            }else {
+                val picture = FormTaskPicture()
+                picture.cate = mPictureTemplete.cate
+                picture.localCachePath = path
+                picture.rowGuid = UUID.randomUUID().toString()
+                picture.pointId = mPictureTemplete.pointId
+                picture.taskCode = mPictureTemplete.taskCode
+                picture.username = mPictureTemplete.username
+                picture.taskGuid = mPictureTemplete.taskGuid
+                this.mPictures!!.add(picture)
+            }
+        }
+        setView()
+    }
+
+    /**
+     * 从data中解析出图片路径
+     * 例子：file:///storage/emulated/0/DCIM/Camera/1528269552327.jpg
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private fun getImagePath(data: Intent):String?{
+        val uri = data.data
+        var path:String? = null
+        if (Build.VERSION.SDK_INT > 19) {
+            //4.4以上系统使用这个方法处理图片
+            path = FileUtil.getImagePath(this, uri, null)
+            path = "file://$path"
+
+        } else if (Build.VERSION.SDK_INT == 19){
+            path = data.data.toString()
+        }
+
+        return path
+    }
+
+    /**
+     * 压缩图片到 size KB以下大小
+     */
+    private fun compressPicture(size: Int) {
+//        top.zibin.luban.Luban.with(this)
+//                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
+//                .ignoreBy(size)
+//                .setCompressListener(object : OnCompressListener {
+//                    override fun onSuccess(file: File?) {
+//
+//                    }
+//
+//                    override fun onError(e: Throwable?) {
+//                    }
+//
+//                    override fun onStart() {
+//                    }
+//
+//                })
+//                .launch()
+    }
+
+
 }

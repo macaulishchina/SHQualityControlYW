@@ -68,7 +68,7 @@ class Reagent_manager_shijipeizhi_Fragment(var rowGuid: String) : Fragment() {
         return conview
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         findview()
         setlisteners()
@@ -84,7 +84,7 @@ class Reagent_manager_shijipeizhi_Fragment(var rowGuid: String) : Fragment() {
             ttv_curremt_yinzi!!.text = currjianchuxian.pollutantName
             refreshview(currjianchuxian)
         } else {
-            activity.toast("没有对应仪器")
+            activity!!.toast("没有对应仪器")
         }
     }
 
@@ -162,7 +162,7 @@ class Reagent_manager_shijipeizhi_Fragment(var rowGuid: String) : Fragment() {
     private fun setlisteners() {
         //仪器选项
         lll_yiqi!!.onClick {
-            var comm = CommonSelectorJianChuXianyq(activity, ianchuxianlsit, object : CommonSelectorJianChuXianyq.OnSelectClickListener {
+            var comm = CommonSelectorJianChuXianyq(activity!!, ianchuxianlsit, object : CommonSelectorJianChuXianyq.OnSelectClickListener {
                 override fun onCommonItemSelect(postions: Int) {
                     currjianchuxian = ianchuxianlsit[postions]
                     ttv_curremt_yiqi!!.text = ianchuxianlsit[postions].instrumentName
@@ -191,10 +191,10 @@ class Reagent_manager_shijipeizhi_Fragment(var rowGuid: String) : Fragment() {
             currjianchuxian.frequency = Cal.conunt.toString()
             try {
                 db!!.update(currjianchuxian)
-                activity.toast("保存成功")
+                activity!!.toast("保存成功")
                 Log.i("scj", "保存检出限表成功")
             } catch (e: Exception) {
-                activity.toast("保存失败")
+                activity!!.toast("保存失败")
                 Log.i("scj", "保存检出限表失败")
                 e.printStackTrace()
             }

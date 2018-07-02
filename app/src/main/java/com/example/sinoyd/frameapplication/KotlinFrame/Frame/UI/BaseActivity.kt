@@ -40,7 +40,7 @@ open class BaseActivity : AppCompatActivity(), HttpListener {
             showdialog( "loadsuccess")
         }
 
-        responsestr = response.body().string()
+        responsestr = response.body()!!.string()
         ShowLog4okhttp("scj").printinfo(response).printJson(responsestr)
     }
 
@@ -48,7 +48,7 @@ open class BaseActivity : AppCompatActivity(), HttpListener {
         this.runOnUiThread {
             showdialog("loadfail")
         }
-        responsestr = response.body().string()
+        responsestr = response.body()!!.string()
         ShowLog4okhttp("scj").printinfo(response).printJson(responsestr)
         Looper.prepare()
         toast("请求失败")

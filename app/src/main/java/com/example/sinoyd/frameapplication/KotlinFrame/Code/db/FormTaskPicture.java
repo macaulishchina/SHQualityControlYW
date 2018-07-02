@@ -21,6 +21,8 @@ public class FormTaskPicture {
     private int id;
     @Column(name = "RowGuid")
     private String RowGuid = "";
+    @Column(name = "TaskGuid")
+    private String TaskGuid = "";
     @Column(name = "TaskCode")
     private String TaskCode = "";
     @Column(name = "PointId")
@@ -29,10 +31,14 @@ public class FormTaskPicture {
     private String Username = "";
     @Column(name = "TakeTime")
     private String TakeTime ="";
+    @Column(name = "UploadTime")
+    private String UploadTime ="";
     @Column(name = "Cate")
     private String Cate = "";
     @Column(name = "Picture")
     private Blob Picture = null;
+    @Column(name = "CachePath")
+    private String LocalCachePath;
 
     public int getId() {
         return id;
@@ -48,6 +54,14 @@ public class FormTaskPicture {
 
     public void setRowGuid(String rowGuid) {
         RowGuid = rowGuid;
+    }
+
+    public String getTaskGuid() {
+        return TaskGuid;
+    }
+
+    public void setTaskGuid(String taskGuid) {
+        TaskGuid = taskGuid;
     }
 
     public String getTaskCode() {
@@ -90,11 +104,27 @@ public class FormTaskPicture {
         TakeTime = takeTime;
     }
 
+    public String getUploadTime() {
+        return UploadTime;
+    }
+
+    public void setUploadTime(String uploadTime) {
+        UploadTime = uploadTime;
+    }
+
     public String getCate() {
         return Cate;
     }
 
     public void setCate(String cate) {
         Cate = cate;
+    }
+
+    public String getLocalCachePath() {
+        return LocalCachePath;
+    }
+
+    public void setLocalCachePath(String localCachePath) {
+        LocalCachePath = localCachePath;
     }
 }
