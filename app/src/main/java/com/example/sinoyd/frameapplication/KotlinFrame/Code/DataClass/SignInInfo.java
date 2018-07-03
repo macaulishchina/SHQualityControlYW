@@ -32,6 +32,7 @@ public class SignInInfo {
     @Column(name="SignState")
     private String SignState;
 
+
     public int getId() {
         return id;
     }

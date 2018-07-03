@@ -2,6 +2,7 @@ package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.*
 import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
@@ -25,32 +26,36 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonweekFormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.Jsonxingnengkaohe
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.HttpUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
+import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.iv_home
+import com.example.sinoyd.frameapplication.R.id.lv_task_management
 import com.example.sinoyd.jiaxingywapplication.Myapplication
-import com.google.gson.Gson
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
 import com.sinoyd.Code.Until.showdialog
+import com.sinoyd.environmentsz.Kotlin.getToday
 import kotlinx.android.synthetic.main.activity_task_management_.*
+import net.coobird.thumbnailator.Thumbnails
 import okhttp3.Response
 import org.jetbrains.anko.act
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import org.json.JSONArray
 import org.json.JSONObject
 import org.xutils.DbManager
 import org.xutils.x
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
+import java.util.*
 
 
 /**任务管理**/
-class Task_management_Activity : BaseActivity() {
-
+class Task_management_Activity : BaseActivity(){
 
     private val WRITE_PERMISSION = 0x01
 
@@ -70,7 +75,6 @@ class Task_management_Activity : BaseActivity() {
                     getdata4sqlite()
                 }
                 2 -> {
-
                 }
             }
             super.handleMessage(msg)
@@ -148,12 +152,15 @@ class Task_management_Activity : BaseActivity() {
                 }
             }
             "PicUp" ->{
-                //val up = gson.fromJson(responsestr,Up::class.java)
-                val message = Message()
-                message.what = 2
-                myHandler.sendMessage(message)
-                Looper.prepare()
-                Looper.loop()
+                val up = gson.fromJson(responsestr,Up::class.java)
+                if(up.result == "True") {
+                    val message = Message()
+                    message.what = 2
+                    myHandler.sendMessage(message)
+                    Log.i("hyd","图片上传成功")
+                    Looper.prepare()
+                    Looper.loop()
+                }
             }
             "PerforUp" -> {
 
@@ -237,40 +244,97 @@ class Task_management_Activity : BaseActivity() {
         var jsonTaskPictures = getTaskPicturesJson(taskGuid)
 
         for(item in jsonTaskPictures){
+
             val request = Networkrequestmodel()
                     .setMethod(Networkrequestmodel.POSTREQUEST)
                     .settag("PicUp")
                     .seturl(Networkrequestaddress.URL_PicUp)
-                    .addparam("json",item)
-            val json = Gson()
+
+
             Log.i("hyd","上传图片附带json数据=$item")
             var localPath = JSONObject(item).getJSONObject("picture").getString("LocalCachePath")
-            localPath = localPath.substring(7,localPath.length-1)
+            localPath = localPath.substring(7,localPath.length)
             val file = File(localPath)
             Log.i("hyd","file path = $localPath 文件是否存在：${file.exists()}")
+
             if(file.exists()){
-                request.file = file
+                /*
                 Luban.with(this)
+                        .load(file)
                         .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
-                        .ignoreBy(1024)
+                        .ignoreBy(10)
                         .setCompressListener(object : OnCompressListener {
                             override fun onSuccess(file: File?) {
-                                Log.i("hyd","文件${file!!.name}压缩完成")
-                                Log.i("hyd","开始发送文件${file.name}")
-                                request.start(this@Task_management_Activity)
+                                Log.i("hyd","文件${file!!.name}压缩完成-----------------------")
+
+                                val bitmap = BitmapFactory.decodeStream(file.inputStream())
+                                val base64Pic = FileUtil.BitmapToStrByBase64(bitmap,60)
+                                val jsPic = JSONObject(item)
+                                jsPic.getJSONObject("picture").remove("LocalCachePath")
+                                jsPic.getJSONObject("picture").put("UploadTime", Date().getToday("yyyy/MM/dd HH:mm:ss"))
+                                jsPic.getJSONObject("picture").put("pictureBase64",base64Pic)
+
+                                /*
+                                    {
+                                    "picture": {
+                                        "id": 10,
+                                        "TakeTime": "2018\/07\/03 15:09:59",
+                                        "PointId": 70,
+                                        "Cate": "站房环境",
+                                        "UploadTime": "2018\/07\/03 15:10:03",
+                                        "RowGuid": "52c3d0df-9b95-4b39-981f-882a53c3c0bf",
+                                        "Username": "大虞环保",
+                                        "TaskCode": "18061913714",
+                                        "TaskGuid": "a47f5105-429c-4e09-9ba3-3b62f9dbe717",
+                                        "pictureBase64": "\/9j\/4AAQSkZJRgABAQA**********gsKCA0LCgsODg0PEyAVExISEyc"
+                                        }
+                                    }
+                                 */
+                                Log.i("hyd","开始发送文件${file.name}>>>>>>>>>>>>>>>>>>>>>>")
+                                request.addparam("json",jsPic.toString()).start(this@Task_management_Activity)
                             }
 
                             override fun onError(e: Throwable?) {
-                                Log.i("hyd","文件${file.name}压缩失败")
+                                Log.i("hyd","文件${file.name}压缩失败!!!!!!!!!!!!!!!!!!!")
                             }
 
                             override fun onStart() {
-                                Log.i("hyd","开始压缩文件${file.name}")
+                                Log.i("hyd","开始压缩文件${file.name}>>>>>>>>>>>>>>>>>>>>")
                             }
 
                         }).launch()
+                                */
+                val bitmap = FileUtil.decodeFile(file.absolutePath)
+                Log.i("hyd","文件${file!!.name}压缩完成-----------------------")
+                val base64Pic = FileUtil.BitmapToStrByBase64(bitmap,50)
+                val jsPic = JSONObject(item)
+                jsPic.getJSONObject("picture").remove("LocalCachePath")
+                jsPic.getJSONObject("picture").put("UploadTime", Date().getToday("yyyy/MM/dd HH:mm:ss"))
+                jsPic.getJSONObject("picture").put("pictureBase64",base64Pic)
+
+                /*
+                    {
+                    "picture": {
+                        "id": 10,
+                        "TakeTime": "2018\/07\/03 15:09:59",
+                        "PointId": 70,
+                        "Cate": "站房环境",
+                        "UploadTime": "2018\/07\/03 15:10:03",
+                        "RowGuid": "52c3d0df-9b95-4b39-981f-882a53c3c0bf",
+                        "Username": "大虞环保",
+                        "TaskCode": "18061913714",
+                        "TaskGuid": "a47f5105-429c-4e09-9ba3-3b62f9dbe717",
+                        "pictureBase64": "\/9j\/4AAQSkZJRgABAQA**********gsKCA0LCgsODg0PEyAVExISEyc"
+                        }
+                    }
+                 */
+                Log.i("hyd","开始发送文件${file.name}>>>>>>>>>>>>>>>>>>>>>>")
+                request.addparam("json",jsPic.toString()).start(this@Task_management_Activity)
             }
+
+
         }
+
     }
 
 
@@ -443,10 +507,12 @@ class Task_management_Activity : BaseActivity() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     private fun requestWritePermission(){
-        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),WRITE_PERMISSION)
         }
+
     }
 }

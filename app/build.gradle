@@ -59,8 +59,11 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     implementation 'com.github.ForgetAll:LoadingDialog:v1.0.4'
     //    compile 'org.greenrobot:greendao:3.2.2'
+
     implementation group: 'org.xutils', name: 'xutils', version: '3.5.0'
     implementation group: 'com.squareup.picasso', name: 'picasso', version: '2.71828'
     implementation group: 'top.zibin', name: 'Luban', version: '1.1.6'
+    // https://mvnrepository.com/artifact/net.coobird/thumbnailator
+    compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
 
 }

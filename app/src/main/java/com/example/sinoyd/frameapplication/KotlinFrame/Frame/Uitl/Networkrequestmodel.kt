@@ -105,17 +105,19 @@ class Networkrequestmodel {
             POSTREQUEST -> {
                 val requestBody = MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
-                        if(this.file != null){      //如果上传包含图片
-                            val fileBody = RequestBody.create(MediaType.parse("image/jpeg"),file)
-                            requestBody.addFormDataPart("file", file!!.name,fileBody)
-                            requestBody.addFormDataPart("fileType","jpg")
-                        }
-                        addPostParameter(requestBody)
+                if(this.file != null){      //如果上传包含图片
+                    val fileBody = RequestBody.create(MediaType.parse("image/jpeg"),file)
+                    requestBody.addFormDataPart("file", file!!.name,fileBody)
+                }
+                for (item in parameter) {
+                    requestBody.addFormDataPart(item.key,item.value)
+                }
                 request = Request.Builder()
-                        .url(url)
-                        .post(requestBody.build())
-                        .build()
+                .url(url)
+                .post(requestBody.build())
+                .build()
             }
+
         }
         //开始发送请求
         try {

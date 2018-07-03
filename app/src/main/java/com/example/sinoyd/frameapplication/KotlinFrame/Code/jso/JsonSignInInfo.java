@@ -15,8 +15,8 @@ import java.util.List;
 
 public class JsonSignInInfo {
 
+    //{"id":3,"PointName":"长江口朝阳农场（海标）","message":"","SignState":"已签退","PointId":9,"SignOutTime":"2018\/07\/03 16:31:44","RowGuid":"9edf9572-11dd-4764-a2e2-8135b17e64dd","UserGuid":"c7017a1d-fea4-447b-803b-62d0e0d33233","SignInTime":"2018\/07\/03 16:21:46","UserName":"大虞环保"}
     private SignInInfo SignIn;
-    private List<SingleDateSelectDialog> SignInData;
 
     public SignInInfo getSignIn() {
         return SignIn;
@@ -24,14 +24,6 @@ public class JsonSignInInfo {
 
     public void setSignIn(SignInInfo signIn) {
         SignIn = signIn;
-    }
-
-    public List<SingleDateSelectDialog> getSignInData() {
-        return SignInData;
-    }
-
-    public void setSignInData(List<SingleDateSelectDialog> signInData) {
-        SignInData = signInData;
     }
 
     @Override

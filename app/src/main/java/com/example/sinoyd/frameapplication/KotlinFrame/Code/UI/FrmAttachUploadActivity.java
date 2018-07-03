@@ -250,6 +250,7 @@ public class FrmAttachUploadActivity extends SinoBaseActivity implements FrmActi
         options.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath, options); //此时返回bm为空
 
+
         int be = options.outWidth / 720;
         if (be < 1) {
             be = 1;

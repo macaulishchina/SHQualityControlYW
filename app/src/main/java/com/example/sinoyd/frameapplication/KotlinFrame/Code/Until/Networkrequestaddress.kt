@@ -27,7 +27,7 @@ object Networkrequestaddress {
     /**上传任务**/
     val URL_Up = SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/Up"
     /**上传图片**/
-    val URL_PicUp =SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/UpPicture"
+    val URL_PicUp =SERVER_URL + "/api/v1/QualityConOperation/PostUploadImage"
     /**获取站点**/
     val URL_PointInfo = SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/PointInfo"
     /**获取站点所对应因子**/
@@ -40,6 +40,7 @@ object Networkrequestaddress {
     val URL_PerforDown = SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/PerforDown"
     /**性能考核上传接口**/
     val URL_PerforUp = SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/PerforUp"
-
+    /**签到上传接口**/
+    val URL_SignIn = SERVER_URL + "/api/v1/QualityConOperation/PostAttention"
 
 }

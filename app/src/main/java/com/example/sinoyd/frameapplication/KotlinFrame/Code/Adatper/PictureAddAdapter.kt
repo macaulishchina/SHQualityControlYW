@@ -31,14 +31,16 @@ class PictureAddAdapter(var context: Context,var pictures: MutableList<FormTaskP
             view = convertView
             holder = view.tag as PictureAddAdapter.ViewHolder
         }
-//        val file = File(pictures[position].localCachePath)
-//        if(file.exists()){
-//            Log.i("hyd","${file.absolutePath} 存在")
-//        }else{
-//            Log.i("hyd","${file.absolutePath} 不存在")
-//        }
-//        holder.imageView.imageBitmap =
-//                BitmapFactory.decodeFile(pictures[position].localCachePath)
+        /*
+        val file = File(pictures[position].localCachePath.substring(7,pictures[position].localCachePath.length))
+        if(file.exists()){
+            Log.i("hyd","${file.absolutePath} 存在")
+        }else{
+            Log.i("hyd","${file.absolutePath} 不存在")
+        }
+        holder.imageView.imageBitmap =
+                BitmapFactory.decodeFile(pictures[position].localCachePath)
+                */
         Picasso.get().load(pictures[position].localCachePath)
                 .placeholder(R.drawable.imageview_holder)
                 .error(R.drawable.imageview_error)

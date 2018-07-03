@@ -5,6 +5,9 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskFactor;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.List;
 
 /**
@@ -36,5 +39,6 @@ public class JsonTaskPicture {
         Gson gs = new Gson();
         return gs.toJson(this);
     }
+
 
 }

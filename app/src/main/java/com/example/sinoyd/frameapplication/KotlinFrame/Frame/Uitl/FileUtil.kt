@@ -16,6 +16,13 @@ import android.content.ContentUris
 import android.os.Build
 import android.content.ContentResolver
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.DateUtil
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
+import java.util.*
 
 
 /**
@@ -155,4 +162,42 @@ object FileUtil {
     }
 
 
+    /**
+     * 通过Base64将Bitmap转换成Base64字符串
+     * @param bit
+     * @return
+     */
+    fun BitmapToStrByBase64(bit: Bitmap,quality :Int = 80): String {
+        val bos = ByteArrayOutputStream()
+        bit.compress(Bitmap.CompressFormat.JPEG, quality, bos)//第二个入参表示图片压缩率，如果是100就表示不压缩
+        val bytes = bos.toByteArray()
+        return Base64.encodeToString(bytes, Base64.DEFAULT)
+    }
+
+    /**
+     * 对图片进行压缩
+     * @param srcPath
+     * @return
+     */
+    /**
+     * 对图片进行压缩
+     * @param srcPath
+     * @return
+     */
+    fun decodeFile(srcPath: String): Bitmap {
+        val options = BitmapFactory.Options()
+        // 获取这个图片的宽和高
+        options.inJustDecodeBounds = true
+        val bitmap = BitmapFactory.decodeFile(srcPath, options) //此时返回bm为空
+
+        var be = options.outWidth / 720
+        if (be < 1) {
+            be = 1
+        }
+        options.inJustDecodeBounds = false
+        options.inSampleSize = be
+
+        return BitmapFactory.decodeFile(srcPath, options)
+
+    }
 }

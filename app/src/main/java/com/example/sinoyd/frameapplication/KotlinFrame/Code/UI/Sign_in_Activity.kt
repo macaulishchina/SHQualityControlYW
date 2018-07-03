@@ -13,10 +13,18 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.SigninAdapte
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.SignInInfo
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.User
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonSignInInfo
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.ToastUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
 import com.sinoyd.environmentsz.Kotlin.getToday
+import okhttp3.Response
 import org.json.JSONObject
 import org.xutils.DbManager
 import org.xutils.x
@@ -39,6 +47,7 @@ class Sign_in_Activity : BaseActivity() {
     var date = Date()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in_)
@@ -47,6 +56,8 @@ class Sign_in_Activity : BaseActivity() {
         setlisteners()
         getDateSignInfoLocal()
     }
+
+
 
     private fun setlisteners() {
         //返回主页
@@ -112,7 +123,11 @@ class Sign_in_Activity : BaseActivity() {
     }
 
 
+    /**
+     * 签到或签退方法（自动判断）
+     */
     private fun signInOrOut(signInfo:SignInInfo){
+
         var res = db!!.selector(SignInInfo::class.java)
                 .where("UserGuid", "=", signInfo.userGuid)//当前用户
                 .and("PointId", "=", signInfo.pointId)
@@ -128,6 +143,7 @@ class Sign_in_Activity : BaseActivity() {
             res.signOutTime = date.getToday("yyyy/MM/dd HH:mm:ss")
             res.signState = "已签退"
         }
+
         val a = try {
             db!!.saveOrUpdate(res)
             Log.i("scj", "站点签到信息表单保存成功")
@@ -141,6 +157,25 @@ class Sign_in_Activity : BaseActivity() {
             getDateSignInfoLocal()
         }
 
+        val jsonSign = JsonSignInInfo()
+        jsonSign.signIn = res
+        var json = JSONObject(jsonSign.toString()).getJSONObject("SignIn").toString()
+
+        val request = Networkrequestmodel()
+                .setMethod(Networkrequestmodel.POSTREQUEST)
+                .settag("signIn")
+                .seturl(Networkrequestaddress.URL_SignIn)
+                .addparam("json",json)
+                .start(this)
+    }
+
+    override fun requestSuccess(response: Response, TAG: String) {
+        super.requestSuccess(response, TAG)
+        when(TAG){
+            "signIn"->{
+                Log.i("hyd","签到信息已经同步到服务器")
+            }
+        }
     }
 
     //显示界面

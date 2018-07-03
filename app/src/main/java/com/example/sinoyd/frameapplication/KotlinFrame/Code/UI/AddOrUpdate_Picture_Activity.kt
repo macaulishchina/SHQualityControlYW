@@ -27,6 +27,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.FrmActionSheet
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
 import com.sinoyd.environmentsz.Kotlin.getToday
 import kotlinx.android.synthetic.main.activity_add_picture.*
