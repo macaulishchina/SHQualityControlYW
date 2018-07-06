@@ -1,6 +1,10 @@
 package com.example.sinoyd.jiaxingywapplication
 
 import android.app.Application
+import android.app.Service
+import android.os.Vibrator
+import com.baidu.mapapi.SDKInitializer
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.service.LocationService
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.SystemUtil
 import org.xutils.x
 import org.xutils.DbManager
@@ -13,6 +17,8 @@ import java.io.File
 class Myapplication : Application() {
 
     private var daoConfig: DbManager.DaoConfig? = null
+    lateinit var locationService: LocationService
+    private lateinit var mVibrator: Vibrator
     fun getDaoConfig(): DbManager.DaoConfig? {
         return daoConfig
     }
@@ -25,10 +31,13 @@ class Myapplication : Application() {
         x.Ext.setDebug(false) // 是否输出debug日志，开启debug会影响性能
         //初始化Sqlite
         ininsqlit()
-        //初始化百度地图
-//        SDKInitializer.initialize(this)
 
-
+        /***
+         * 初始化定位sdk，建议在Application中创建
+         */
+        locationService = LocationService(applicationContext)
+        mVibrator = applicationContext.getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
+        SDKInitializer.initialize(applicationContext)
 
     }
 

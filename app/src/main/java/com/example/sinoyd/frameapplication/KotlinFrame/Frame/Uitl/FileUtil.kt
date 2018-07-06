@@ -129,7 +129,7 @@ object FileUtil {
      * @param fileSize 文件的大小
      * @return
      */
-    fun FormetFileSize(fileSize: Int): String {// 转换文件大小
+    fun FormetFileSize(fileSize: Long): String {// 转换文件大小
         val df = DecimalFormat("#.00")
         var fileSizeString = ""
         if (fileSize < 1024) {
@@ -184,13 +184,13 @@ object FileUtil {
      * @param srcPath
      * @return
      */
-    fun decodeFile(srcPath: String): Bitmap {
+    fun decodeFile(srcPath: String,width:Int): Bitmap {
         val options = BitmapFactory.Options()
         // 获取这个图片的宽和高
         options.inJustDecodeBounds = true
         val bitmap = BitmapFactory.decodeFile(srcPath, options) //此时返回bm为空
 
-        var be = options.outWidth / 720
+        var be = options.outWidth / width
         if (be < 1) {
             be = 1
         }

@@ -76,7 +76,7 @@ class DownloadDialog(private val mContext: Context, url: String) : Dialog(mConte
                     pb!!.progress = downloadSize
                     val res = downloadSize * 100 / fileSize
                     tv!!.text = "已下载：$res%"
-                    bt!!.text = FileUtil.FormetFileSize(downloadSize) + "/" + FileUtil.FormetFileSize(fileSize)
+                    bt!!.text = FileUtil.FormetFileSize(downloadSize.toLong()) + "/" + FileUtil.FormetFileSize(fileSize.toLong())
                 }
                 DOWNLOAD_OK -> {
                     downloadOk = true

@@ -26,7 +26,6 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonweekFormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.Jsonxingnengkaohe
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
-import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.HttpUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
@@ -258,40 +257,25 @@ class Task_management_Activity : BaseActivity(){
             Log.i("hyd","file path = $localPath 文件是否存在：${file.exists()}")
 
             if(file.exists()){
+
                 /*
                 Luban.with(this)
                         .load(file)
                         .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
-                        .ignoreBy(10)
+
                         .setCompressListener(object : OnCompressListener {
                             override fun onSuccess(file: File?) {
-                                Log.i("hyd","文件${file!!.name}压缩完成-----------------------")
 
+                                Log.i("hyd","文件${file!!.name}压缩完成-----------------------")
                                 val bitmap = BitmapFactory.decodeStream(file.inputStream())
                                 val base64Pic = FileUtil.BitmapToStrByBase64(bitmap,60)
                                 val jsPic = JSONObject(item)
                                 jsPic.getJSONObject("picture").remove("LocalCachePath")
                                 jsPic.getJSONObject("picture").put("UploadTime", Date().getToday("yyyy/MM/dd HH:mm:ss"))
                                 jsPic.getJSONObject("picture").put("pictureBase64",base64Pic)
-
-                                /*
-                                    {
-                                    "picture": {
-                                        "id": 10,
-                                        "TakeTime": "2018\/07\/03 15:09:59",
-                                        "PointId": 70,
-                                        "Cate": "站房环境",
-                                        "UploadTime": "2018\/07\/03 15:10:03",
-                                        "RowGuid": "52c3d0df-9b95-4b39-981f-882a53c3c0bf",
-                                        "Username": "大虞环保",
-                                        "TaskCode": "18061913714",
-                                        "TaskGuid": "a47f5105-429c-4e09-9ba3-3b62f9dbe717",
-                                        "pictureBase64": "\/9j\/4AAQSkZJRgABAQA**********gsKCA0LCgsODg0PEyAVExISEyc"
-                                        }
-                                    }
-                                 */
                                 Log.i("hyd","开始发送文件${file.name}>>>>>>>>>>>>>>>>>>>>>>")
                                 request.addparam("json",jsPic.toString()).start(this@Task_management_Activity)
+
                             }
 
                             override fun onError(e: Throwable?) {
@@ -303,33 +287,19 @@ class Task_management_Activity : BaseActivity(){
                             }
 
                         }).launch()
-                                */
-                val bitmap = FileUtil.decodeFile(file.absolutePath)
+                        */
+                Log.i("hyd","File size before decoding = ${FileUtil.FormetFileSize(file.length())}")
+                var bitmap = FileUtil.decodeFile(file.absolutePath,360)
                 Log.i("hyd","文件${file!!.name}压缩完成-----------------------")
                 val base64Pic = FileUtil.BitmapToStrByBase64(bitmap,50)
+
                 val jsPic = JSONObject(item)
                 jsPic.getJSONObject("picture").remove("LocalCachePath")
                 jsPic.getJSONObject("picture").put("UploadTime", Date().getToday("yyyy/MM/dd HH:mm:ss"))
                 jsPic.getJSONObject("picture").put("pictureBase64",base64Pic)
-
-                /*
-                    {
-                    "picture": {
-                        "id": 10,
-                        "TakeTime": "2018\/07\/03 15:09:59",
-                        "PointId": 70,
-                        "Cate": "站房环境",
-                        "UploadTime": "2018\/07\/03 15:10:03",
-                        "RowGuid": "52c3d0df-9b95-4b39-981f-882a53c3c0bf",
-                        "Username": "大虞环保",
-                        "TaskCode": "18061913714",
-                        "TaskGuid": "a47f5105-429c-4e09-9ba3-3b62f9dbe717",
-                        "pictureBase64": "\/9j\/4AAQSkZJRgABAQA**********gsKCA0LCgsODg0PEyAVExISEyc"
-                        }
-                    }
-                 */
                 Log.i("hyd","开始发送文件${file.name}>>>>>>>>>>>>>>>>>>>>>>")
                 request.addparam("json",jsPic.toString()).start(this@Task_management_Activity)
+
             }
 
 
@@ -500,8 +470,8 @@ class Task_management_Activity : BaseActivity(){
         if(requestCode == WRITE_PERMISSION){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d("hyd", "Write Permission Failed")
-                Toast.makeText(this, "You must allow permission write external storage to your mobile device.", Toast.LENGTH_SHORT).show()
-                finish()
+                //Toast.makeText(this, "You must allow permission write external storage to your mobile device.", Toast.LENGTH_SHORT).show()
+                //finish()
             }
         }
 

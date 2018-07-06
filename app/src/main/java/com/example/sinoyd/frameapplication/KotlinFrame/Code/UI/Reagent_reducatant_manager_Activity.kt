@@ -3,6 +3,8 @@ package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.ll_reagent
+import com.example.sinoyd.frameapplication.R.id.ll_reductant
 import kotlinx.android.synthetic.main.activity_reagent_standard_liquid_configuration_.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity

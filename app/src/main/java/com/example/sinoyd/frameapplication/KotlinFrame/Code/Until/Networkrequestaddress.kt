@@ -15,7 +15,6 @@ object Networkrequestaddress {
     val Formaladdress: String = "http://192.168.11.178:9527"
     val Testaddress: String = "http://192.168.90.177:8888"//苏州服务器
 //    val Testaddress: String = "http://192.168.90.3:8888"//lcm本机
-
     init {
         SERVER_URL = if (RELEASE) Formaladdress else Testaddress
     }
@@ -42,5 +41,8 @@ object Networkrequestaddress {
     val URL_PerforUp = SERVER_URL + "/api/v1/QualityConOperation/QualiConOperApp/PerforUp"
     /**签到上传接口**/
     val URL_SignIn = SERVER_URL + "/api/v1/QualityConOperation/PostAttention"
-
+    /**用户权限内站点获取接口**/
+    val URL_GrantedSites = SERVER_URL+"/api/v1/BaseData/PointInfo/Operator"       //get:para "?Operator=guid"
+    /**获取所有站点的最新数据**/
+    val URL_SitesLastData = SERVER_URL+"/api/v1/mobile/app/ports/gis"
 }

@@ -3,6 +3,7 @@ package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.iv_home
 import kotlinx.android.synthetic.main.activity_monitoring_data_.*
 import org.jetbrains.anko.onClick
 

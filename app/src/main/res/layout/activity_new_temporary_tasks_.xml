@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/icon_bg2"
     android:orientation="vertical"
-    android:padding="150dp"
+    android:padding="100dp"
     tools:context="com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.New_Temporary_Tasks_Activity">
 
     <LinearLayout

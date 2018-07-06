@@ -15,9 +15,11 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dialog.DownloadDialog
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.SystemUtil
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.ToastUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.OpenFiles
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
@@ -87,7 +89,7 @@ class MainActivity : BaseActivity() {
         }
         //任务管理
         taskmanagement.onClick {
-            startActivity<Task_management_Activity>()
+            if(checkUserState()) startActivity<Task_management_Activity>()
         }
         //站点定位
         sitelocation.onClick {
@@ -105,10 +107,7 @@ class MainActivity : BaseActivity() {
         To_be_completedtask.onClick {
             //toast("待完成任务")
             //临时测试查看数据库数据
-
-
 //            toast("数据库中表单因子有" + MyApplication.db.findAll(FormTaskFactor::class.java).size + "条数据")
-
         }
 
         //报警信息
@@ -125,9 +124,19 @@ class MainActivity : BaseActivity() {
         }
         //新建临时任务
         newtemporarytasks.onClick {
-            startActivity<New_Temporary_Tasks_Activity>()
+            if(checkUserState()) startActivity<New_Temporary_Tasks_Activity>()
         }
     }
+
+    private fun checkUserState():Boolean {
+          if(SharedPreferencesFactory.getdata(this, "SignState") == "True"){
+              return true
+          }else{
+              ToastUtil.showShort(this,"请您先签到")
+              return false
+          }
+    }
+
 
 
     override fun requestSuccess(response: Response, TAG: String) {

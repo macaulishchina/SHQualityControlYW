@@ -18,6 +18,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Dataclass.gson
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.showdialog
@@ -245,6 +246,8 @@ class Reagent_manager_Activity : BaseActivity() {
     var listLingDian: ArrayList<LingDianData> = ArrayList()
 
     fun dbsave(perforDown: PerforDown) {
+        //bug避免 之后调试
+        if(perforDown == null || perforDown.jianChuXianData == null) return
         listjianchu = ArrayList()
         listbiaozhun = ArrayList()
         listLingDian = ArrayList()
