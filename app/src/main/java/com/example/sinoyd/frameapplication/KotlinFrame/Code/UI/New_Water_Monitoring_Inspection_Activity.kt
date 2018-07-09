@@ -16,7 +16,9 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequest
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.View.*
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
+import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.macaulish.top.velvet.util.Logger
 import com.sinoyd.Code.Until.DisplayorhideSoftkeyboard
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
@@ -51,7 +53,8 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
         pointid = intent.getStringExtra("pointId")
 
         if (rowGuid == "新建临时任务") {
-
+            //setlisteners()
+            //getInspectionInfo()
         } else {
             //增加监听事件
             setlisteners()
@@ -241,12 +244,14 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
         var curremtInstrument = Instrument()
         //仪器名称
         runOnUiThread {
-            curremtInstrument = list[0]
-            tv_InstrumentName.text = list[0].instrumentName
-            tv_OldProductNumber.text = list[0].oldProductNumber
-            tv_NewProductNumber.setText(list[0].newProductNumber)
-            tv_Reason.setText(list[0].reason)
-            show_yiqi_change.text = list[0].recordStr
+            if(list.size > 0) {
+                curremtInstrument = list[0]
+                tv_InstrumentName.text = list[0].instrumentName
+                tv_OldProductNumber.text = list[0].oldProductNumber
+                tv_NewProductNumber.setText(list[0].newProductNumber)
+                tv_Reason.setText(list[0].reason)
+                show_yiqi_change.text = list[0].recordStr
+            }
         }
         ll_InstrumentName.onClick {
             var com = CommonSelectorInstrument(act, list, object : CommonSelectorInstrument.OnSelectClickListener {
@@ -293,15 +298,17 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
         var curremtarray: List<String> = ArrayList()
         //仪器名称
         runOnUiThread {
-            curremtStandardSolutionChange = list[0]
-            sj_tv_InstrumentName.text = list[0].instrumentName//仪器名称
-            curremtarray = list[0].stanLiquidName.split("$")
-            sj_tv_biaoyename.text = curremtarray[0].split("#")[0]//试剂标液名称
-            sj_tv_OldProductNumber.text = curremtarray[0].split("#")[1]//老系统编号
-            sj_tv_NewProductNumber.setText(list[0].newStanLiquidNumber)//新系统编号
-            tv_sj_yongliang.setText(list[0].usageValue)//用量
-            tv_sj_Reason.setText(list[0].reason)//原因
-            show_sj_change.text = list[0].recordStr//记录
+            if(list.size > 0) {
+                curremtStandardSolutionChange = list[0]
+                sj_tv_InstrumentName.text = list[0].instrumentName//仪器名称
+                curremtarray = list[0].stanLiquidName.split("$")
+                sj_tv_biaoyename.text = curremtarray[0].split("#")[0]//试剂标液名称
+                sj_tv_OldProductNumber.text = curremtarray[0].split("#")[1]//老系统编号
+                sj_tv_NewProductNumber.setText(list[0].newStanLiquidNumber)//新系统编号
+                tv_sj_yongliang.setText(list[0].usageValue)//用量
+                tv_sj_Reason.setText(list[0].reason)//原因
+                show_sj_change.text = list[0].recordStr//记录
+            }
         }
         //仪器名称
         sj_ll_InstrumentName.onClick {
@@ -364,14 +371,16 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
         var curremtarray: List<String> = ArrayList()
         //仪器名称
         runOnUiThread {
-            currConsumables = list[0]
-            tv_Consumableyiqi.text = list[0].instrumentName//仪器名称
-            curremtarray = list[0].stanLiquidName.split("$")//耗材list
-            tv_Consumablename.text = curremtarray[0].toString()//耗材name
-            tv_Consumable_yongliang.setText(list[0].usageValue)//用量
-            tv_Consumable_shuoming.setText(list[0].reason)//原因
-            show_Consumable_change.text = list[0].recordStr//记录
-            currConsumables.consumablesresult = curremtarray[0]
+            if(list.size > 0) {
+                currConsumables = list[0]
+                tv_Consumableyiqi.text = list[0].instrumentName//仪器名称
+                curremtarray = list[0].stanLiquidName.split("$")//耗材list
+                tv_Consumablename.text = curremtarray[0].toString()//耗材name
+                tv_Consumable_yongliang.setText(list[0].usageValue)//用量
+                tv_Consumable_shuoming.setText(list[0].reason)//原因
+                show_Consumable_change.text = list[0].recordStr//记录
+                currConsumables.consumablesresult = curremtarray[0]
+            }
         }
         //仪器名称选择
         ll_Consumable.onClick {
@@ -510,6 +519,7 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
             Log.i("scj", "【状况】表单保存失败")
         }
 
+
         /***所有【Instrument】 仪器  存入***/
         var yqlist: ArrayList<Instrument> = ArrayList()
         for (item in inspectionInfo.instrument) {
@@ -585,7 +595,6 @@ class New_Water_Monitoring_Inspection_Activity : BaseActivity() {
             con.recordStr = item.recordStr
             Consumableslist.add(con)
         }
-
         try {
             db!!.save(Consumableslist)
             Log.i("scj", "【耗材更换】表单保存成功")

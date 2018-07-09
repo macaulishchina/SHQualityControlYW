@@ -10,7 +10,7 @@ package com.sinoyd.Code.Until
 object Networkrequestaddress {
     //账号：admin    密码：sinoyd123!@%23
     //账号：leici    密码：leici2017
-    var RELEASE: Boolean = false
+    var RELEASE: Boolean = true
     var SERVER_URL = ""
     val Formaladdress: String = "http://192.168.11.178:9527"
     val Testaddress: String = "http://192.168.90.177:8888"//苏州服务器

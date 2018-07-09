@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
@@ -29,9 +30,14 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Uitl.FileUtil
 import com.example.sinoyd.frameapplication.R
 import com.example.sinoyd.frameapplication.R.id.*
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.macaulish.top.coconut.util.DateKits
+import com.macaulish.top.coconut.util.FileKits
+import com.macaulish.top.velvet.util.StorageKits
+import com.macaulish.top.velvet.util.UriKits
 import com.sinoyd.environmentsz.Kotlin.getToday
 import kotlinx.android.synthetic.main.activity_add_picture.*
 import kotlinx.android.synthetic.main.view_add_picture.*
+import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.onClick
 import org.xutils.DbManager
 import org.xutils.db.sqlite.WhereBuilder
@@ -59,6 +65,7 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
     var myapplication: Myapplication = Myapplication()
     var db: DbManager? = null
     var file: File? = null
+    lateinit var imageUri:Uri
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -172,8 +179,11 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
                 FrmUploadAction.openPic(this, "image/jpeg")
             1 -> {
                 //拍照
-                file = File(externalCacheDir, "images"+File.separator+DateUtil.convertDate(Date(), "yyyyMMddHHmmss") + ".jpg")
-                FrmUploadAction.openCamera(this, file,PROVIDER_AUTHORITY)
+                val path = ""+StorageKits.getExternalPublicDir(Environment.DIRECTORY_PICTURES)+File.separator+"yd"+File.separator+DateKits.getNow("yyyyMMddHHmmss")+".jpg"
+                imageUri = UriKits(this,"${application.packageName}.Provider").getUriByFilePath(path)
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                startActivityForResult(intent, FrmUploadAction.OpenCamera_REQUESTCODE)
             }
             else -> {
             }
@@ -182,17 +192,14 @@ class AddOrUpdate_Picture_Activity : BaseActivity(), FrmActionSheet.MenuItemClic
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i("hyd","resultCode$resultCode,resultDate=${data!!.data}")
         when (requestCode) {
             FrmUploadAction.OpenCamera_REQUESTCODE ->
                 if (resultCode == Activity.RESULT_OK) {
-                    addPicture(file!!.absolutePath)
-                    Log.i("hyd","从相机获得照片：完整路径为=${file!!.absolutePath}")
+                    addPicture("${imageUri.encodedPath}")
                 }
             FrmUploadAction.OpenPhoto_REQUESTCODE ->
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.i("hyd","URI = ${data.data}")
-                    val path = "file://"+UriToFilePath.getPath(this,data.data)
+                    val path = UriToFilePath.getPath(this,data!!.data)
                     addPicture(path)
                     Log.i("hyd","从相册获得照片：完整路径为=$path")
                 }

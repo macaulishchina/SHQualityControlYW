@@ -43,7 +43,7 @@ class New_Temporary_Tasks_Activity : BaseActivity() {
         }
           //水质巡检
         newwaterMonitoringinspection.onClick {
-            startActivity<New_Water_Monitoring_Inspection_Activity>("rowGuid" to "新建临时任务", "pointId" to "周期任务")
+            startActivity<New_Water_Monitoring_Inspection_Activity>("rowGuid" to "新建临时任务", "pointId" to "7")
         }
         //标样核查
        newStandardsolutionverification.onClick {

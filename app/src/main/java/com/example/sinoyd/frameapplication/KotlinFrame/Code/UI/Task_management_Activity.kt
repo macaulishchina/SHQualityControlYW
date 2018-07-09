@@ -185,8 +185,6 @@ class Task_management_Activity : BaseActivity(){
      * 加标回收【JiaBiaoHS】
      * 准确度和精密度 【AccuracyAndPrecision】
      * **/
-
-
     //跳转界面
     fun goto(type: String, guid: String, tasktypename: String, stationid: String) {
         when (type) {
@@ -306,8 +304,6 @@ class Task_management_Activity : BaseActivity(){
         }
 
     }
-
-
 
     //上传任务
     fun upload(type: String, guid: String, pointId: Int) {

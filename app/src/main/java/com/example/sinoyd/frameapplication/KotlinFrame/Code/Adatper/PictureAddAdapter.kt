@@ -41,7 +41,7 @@ class PictureAddAdapter(var context: Context,var pictures: MutableList<FormTaskP
         holder.imageView.imageBitmap =
                 BitmapFactory.decodeFile(pictures[position].localCachePath)
                 */
-        Picasso.get().load(pictures[position].localCachePath)
+        Picasso.get().load("file://"+pictures[position].localCachePath)
                 .placeholder(R.drawable.imageview_holder)
                 .error(R.drawable.imageview_error)
                 .fit().centerCrop()

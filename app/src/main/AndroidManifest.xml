@@ -46,13 +46,13 @@
             android:name="com.amap.api.v2.apikey"
             android:value="d8e85c8d22f41a0c92475d592dca45b0" />
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.sinoyd.frameapplication.fileprovider"
+            android:authorities="${applicationId}.Provider"
+            android:name=".KotlinFrame.Provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity android:name=".KotlinFrame.Code.UI.LoginActivity">
@@ -79,8 +79,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".KotlinFrame.Code.UI.Task_management_Activity" />
         <activity android:name=".KotlinFrame.Code.UI.Site_location_Activity" />
-        //测试用
-        <activity android:name=".KotlinFrame.Code.UI.LocationDemo"/>
         <activity android:name=".KotlinFrame.Code.UI.Monitoring_data_Activity" />
         <activity android:name=".KotlinFrame.Code.UI.Alarm_information_Activity" />
         <activity android:name=".KotlinFrame.Code.UI.Atatistical_analysis_Activity" />
