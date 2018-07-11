@@ -3,7 +3,9 @@ package com.example.sinoyd.frameapplication.KotlinFrame.Code.jso;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTask;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskFactor;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Check2clean;
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.CheckInstrument;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Consumables;
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.FixInstrument;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Instrument;
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.StandardSolutionChange;
 import com.google.gson.Gson;
@@ -30,6 +32,8 @@ public class JsonweekFormTask {
     private List<Instrument> Instrumentdata;
     private List<StandardSolutionChange> StandardSolutionChangedata;
     private List<Consumables> Consumablesdata;
+    private List<FixInstrument> FixInstrumentdata;
+    private List<CheckInstrument> CheckInstrumentdata;
 
     public List<Consumables> getConsumablesdata() {
         return Consumablesdata;
@@ -69,6 +73,22 @@ public class JsonweekFormTask {
 
     public void setStandardSolutionChangedata(List<StandardSolutionChange> standardSolutionChangedata) {
         StandardSolutionChangedata = standardSolutionChangedata;
+    }
+
+    public List<FixInstrument> getFixInstrumentdata() {
+        return FixInstrumentdata;
+    }
+
+    public void setFixInstrumentdata(List<FixInstrument> fixInstrumentdata) {
+        FixInstrumentdata = fixInstrumentdata;
+    }
+
+    public List<CheckInstrument> getCheckInstrumentdata() {
+        return CheckInstrumentdata;
+    }
+
+    public void setCheckInstrumentdata(List<CheckInstrument> checkInstrumentdata) {
+        CheckInstrumentdata = checkInstrumentdata;
     }
 
     @Override

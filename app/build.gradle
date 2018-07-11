@@ -71,6 +71,6 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.6'
     // https://mvnrepository.com/artifact/net.coobird/thumbnailator
     implementation 'net.coobird:thumbnailator:0.4.8'
-    implementation 'com.github.macaulishchina:salmon:v0.1.0'
+    implementation 'com.github.macaulishchina:salmon:0.00002'
     implementation files('libs/BaiduLBS_Android.jar')
 }

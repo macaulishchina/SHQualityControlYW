@@ -10,7 +10,7 @@ package com.sinoyd.Code.Until
 object Networkrequestaddress {
     //账号：admin    密码：sinoyd123!@%23
     //账号：leici    密码：leici2017
-    var RELEASE: Boolean = true
+    var RELEASE: Boolean = false
     var SERVER_URL = ""
     val Formaladdress: String = "http://192.168.11.178:9527"
     val Testaddress: String = "http://192.168.90.177:8888"//苏州服务器
@@ -42,7 +42,7 @@ object Networkrequestaddress {
     /**签到上传接口**/
     val URL_SignIn = SERVER_URL + "/api/v1/QualityConOperation/PostAttention"
     /**用户权限内站点获取接口**/
-    val URL_GrantedSites = SERVER_URL+"/api/v1/BaseData/PointInfo/Operator"       //get:para "?Operator=guid"
+    val URL_GrantedSites = SERVER_URL+"/api/v1/mobile/app/ports/gisbyuserguid"       //get:para "pointid=&userguid=4ce5bed9-78bd-489f-8b3f-a830098759c4"
     /**获取所有站点的最新数据**/
     val URL_SitesLastData = SERVER_URL+"/api/v1/mobile/app/ports/gis"
 }

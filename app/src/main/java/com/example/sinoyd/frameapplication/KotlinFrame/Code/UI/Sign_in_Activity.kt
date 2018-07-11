@@ -1,17 +1,22 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.UI
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import com.example.sinoyd.frameapplication.R
 import kotlinx.android.synthetic.main.activity_sign_in_.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
 import com.google.zxing.integration.android.IntentIntegrator
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
@@ -20,15 +25,16 @@ import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.utils.DistanceUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.Adatper.SigninAdapter
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.SignInInfo
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.Sign_in_Activity.Companion.ASK_FOR_SIGN_IN
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.UI.Sign_in_Activity.Companion.LOCATION_SUCCESS
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonSignInInfo
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.service.LocationService
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.Networkrequestmodel
+import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.PermissionKits
 import com.example.sinoyd.frameapplication.KotlinFrame.Frame.Uitl.ToastUtil
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
-import com.example.sinoyd.frameapplication.R.id.*
+import com.example.sinoyd.frameapplication.R.style.dialog
 import com.example.sinoyd.jiaxingywapplication.Myapplication
+import com.macaulish.top.velvet.util.Logger
+import com.macaulish.top.velvet.view.SimpleDialog
 import com.sinoyd.Code.Until.Networkrequestaddress
 import com.sinoyd.Code.Until.SharedPreferencesFactory
 import com.sinoyd.environmentsz.Kotlin.getToday
@@ -43,14 +49,10 @@ import kotlin.collections.ArrayList
 /**签到**/
 class Sign_in_Activity : BaseActivity() {
 
-    companion object {
-        const val ASK_FOR_SIGN_IN = 0
-        const val LOCATION_SUCCESS = 1
-        const val MAX_DISTANCE = 1000
-    }
 
     var myapplication: Myapplication = Myapplication()
     var db:DbManager? = null
+    val dialog = SimpleDialog(this@Sign_in_Activity)
 
 
     //从签到表中获得的数据
@@ -76,6 +78,7 @@ class Sign_in_Activity : BaseActivity() {
                     signInfo = (msg.obj!! as SignInInfo)
                     point = LatLng(msg.data.getDouble("latitude"),msg.data.getDouble("longitude"))
                     Log.i("hyd","签到请求：站点位置$point")
+                    dialog.alert("扫码成功，请等待位置验证。")
                 }
                 LOCATION_SUCCESS ->{
                     //获得定位数据
@@ -87,8 +90,9 @@ class Sign_in_Activity : BaseActivity() {
                         val distance = DistanceUtil.getDistance(point,current)
                         if(distance < MAX_DISTANCE){
                             signInOrOut(signInfo!!)
+                            dialog.alert("签到验证成功")
                         }else{
-                            ToastUtil.showShort(this@Sign_in_Activity,"抱歉，您不在站点附近")
+                            dialog.alert("签到验证失败，你可能不在站点附近。\nps:你的经纬度为 经度：${current.longitude} 经度：${current.latitude}")
                         }
                     }
                 }
@@ -104,7 +108,24 @@ class Sign_in_Activity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in_)
         db = x.getDb(myapplication.getDaoConfig())
-
+        requestPermissions()
+        /*
+         * 测试用
+         */
+        tv_sign_in_test.text = if(SharedPreferencesFactory.getdata(this,"SignState") == "True") "已签到" else "未签到"
+        tv_sign_in_test.onClick{
+            val tv = (it as TextView)
+            when(tv.text){
+                "未签到" ->{
+                    tv.text = "已签到"
+                    SharedPreferencesFactory.savedata(this,"SignState","True")
+                }
+                "已签到" ->{
+                    tv.text = "未签到"
+                    SharedPreferencesFactory.savedata(this,"SignState","False")
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -204,17 +225,18 @@ class Sign_in_Activity : BaseActivity() {
                 .and("SignState","=","已签到")
                 .orderBy("SignInTime", true)
                 .findFirst()
-
+        SharedPreferencesFactory.savedata(this,"PointId",signInfo.pointId.toString())
+        SharedPreferencesFactory.savedata(this,"PointName",signInfo.pointName.toString())
         if(res == null){ //签到操作
             res = signInfo
             res.rowGuid = UUID.randomUUID().toString()
             res.signInTime = date.getToday("yyyy/MM/dd HH:mm:ss")
             res.signState = "已签到"
-            //SharedPreferencesFactory.savedata(this,"SignState","True")
+            SharedPreferencesFactory.savedata(this,"SignState","True")
         }else{  //签退操作
             res.signOutTime = date.getToday("yyyy/MM/dd HH:mm:ss")
             res.signState = "已签退"
-            //SharedPreferencesFactory.savedata(this,"SignState","False")
+            SharedPreferencesFactory.savedata(this,"SignState","False")
         }
 
         val a = try {
@@ -286,7 +308,6 @@ class Sign_in_Activity : BaseActivity() {
                 message.data.putDouble("longitude",location.longitude)
                 message.data.putDouble("latitude",location.latitude)
                 mHandler.sendMessage(message)
-                Toast.makeText(this@Sign_in_Activity,"经度:${location.longitude},纬度:${location.latitude}",Toast.LENGTH_LONG).show()
             }
 
             if (null != location && location.locType != BDLocation.TypeServerError) {
@@ -383,5 +404,50 @@ class Sign_in_Activity : BaseActivity() {
         locationService!!.unregisterListener(mListener) //注销掉监听
         locationService!!.stop() //停止定位服务
         super.onStop()
+    }
+
+    /**
+     * 请求相关运行时权限
+     */
+    private fun requestPermissions() {
+        val permissionKits = PermissionKits(this)
+        val permissions = arrayOf(Manifest.permission.CAMERA,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION)
+        permissionKits.request(permissions, PERMISSION_REQUEST_CODE_DEFAULT,object :PermissionKits.OnRequestStartListener{
+            override fun onRequestStart(permissions: Array<String>, requestCode: Int) {
+                iv_scan.isEnabled = false
+                Logger.i("disable 扫码按钮")
+            }
+        })
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE_DEFAULT -> {
+                val ack = grantResults.size == permissions.size
+                var grantAll = true
+                for(grant in grantResults){
+                    if(grant != PackageManager.PERMISSION_GRANTED){
+                        grantAll = false
+                        break
+                    }
+                }
+                Logger.i("enable $grantAll 扫码按钮")
+                iv_scan.isEnabled = grantAll
+            }
+        }
+    }
+
+    companion object {
+        const val PERMISSION_REQUEST_CODE_DEFAULT = 0
+
+        const val RESULT_ACTIVITY_MEDIA_CAMERA = 100
+
+        const val SALMON_DIRECTORY_NAME = "salmon"
+
+        const val ASK_FOR_SIGN_IN = 0
+        const val LOCATION_SUCCESS = 1
+        const val MAX_DISTANCE = 1000
+
     }
 }

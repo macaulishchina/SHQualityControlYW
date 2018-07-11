@@ -37,7 +37,7 @@ class Networkrequestmodel {
         parameter = HashMap()
         parameterrul = ""
         val logInterceptor = HttpLoggingInterceptor(LogUtil())
-        logInterceptor.level = HttpLoggingInterceptor.Level.BODY;
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
         okHttpClient = OkHttpClient.Builder()
                 .connectTimeout(40, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)

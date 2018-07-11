@@ -20,6 +20,8 @@ public class Site {
     private String pointId ="";
     private String monitoringPointUid="";
     private String name="";
+    private String grade = "";
+    private String qualifiedStatus = "";
     private String address="";
     private String des="";
     private String region="";
@@ -89,6 +91,22 @@ public class Site {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getQualifiedStatus() {
+        return qualifiedStatus;
+    }
+
+    public void setQualifiedStatus(String qualifiedStatus) {
+        this.qualifiedStatus = qualifiedStatus;
     }
 
     public String getAddress() {

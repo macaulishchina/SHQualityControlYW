@@ -5,85 +5,78 @@
 
     <LinearLayout
         android:id="@+id/ll_all"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="200dp"
         android:background="@drawable/popup3"
         android:orientation="vertical"
         android:padding="14dp">
 
         <TextView
-            android:id="@+id/title_name"
+            android:id="@+id/space_0"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/popup_tv_point_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/popup_tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="上海站"
-            android:textSize="16sp" />
+            android:text="站点名"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/popup_tv_prop_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="站点编号"
-            android:textSize="14sp" />
+            android:text="prop"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/popup_tv_prop_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="空气质量"
-            android:textSize="14sp" />
+            android:text="prop"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/popup_tv_prop_3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="属性3"
-            android:visibility="gone"
-            android:textSize="14sp" />
+            android:text="prop"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/popup_tv_prop_4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="属性4"
-            android:visibility="gone"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/popup_tv_prop_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="属性5"
-            android:visibility="gone"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/popup_tv_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="最新时间：2018-07-07 11：32：00"
+            android:text="prop"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
 
         <TextView
+            android:id="@+id/space_1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_height="10dp" />
+
+
 
 
     </LinearLayout>

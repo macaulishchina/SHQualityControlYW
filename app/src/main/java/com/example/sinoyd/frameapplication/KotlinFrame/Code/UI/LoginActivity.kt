@@ -102,7 +102,6 @@ class LoginActivity : BaseActivity() {
                     user = gson.fromJson(responsestr, User::class.java)
                     if (user.result == "True") {
                         //登陆成功
-                        SharedPreferencesFactory.savedata(this,"SignState","True")
                         SharedPreferencesFactory.savedata(this, "LoginId", LoginId)
                         SharedPreferencesFactory.savedata(this, "Password", Password)
                         SharedPreferencesFactory.savedata(this, "RowGuid", user.data[0].rowGuid)

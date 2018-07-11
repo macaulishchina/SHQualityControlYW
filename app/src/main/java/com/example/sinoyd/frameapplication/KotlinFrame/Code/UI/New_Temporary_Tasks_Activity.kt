@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.example.sinoyd.frameapplication.KotlinFrame.UI.BaseActivity
 import com.example.sinoyd.frameapplication.R
 import com.example.sinoyd.frameapplication.R.id.*
+import com.sinoyd.Code.Until.SharedPreferencesFactory
 import kotlinx.android.synthetic.main.activity_new_temporary_tasks_.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
@@ -43,7 +44,8 @@ class New_Temporary_Tasks_Activity : BaseActivity() {
         }
           //水质巡检
         newwaterMonitoringinspection.onClick {
-            startActivity<New_Water_Monitoring_Inspection_Activity>("rowGuid" to "新建临时任务", "pointId" to "7")
+            val pointId = SharedPreferencesFactory.getdata(this,"PointId")
+            startActivity<New_Water_Monitoring_Inspection_Activity>("rowGuid" to "新建临时任务", "pointId" to pointId)
         }
         //标样核查
        newStandardsolutionverification.onClick {

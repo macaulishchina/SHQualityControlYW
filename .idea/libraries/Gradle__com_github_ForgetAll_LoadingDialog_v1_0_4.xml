@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.ForgetAll:LoadingDialog-v1.0.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/LoadingDialog-v1.0.4.aar/15a963d1719098516863547279b31b2e/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/LoadingDialog-v1.0.4.aar/15a963d1719098516863547279b31b2e/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/LoadingDialog-v1.0.4.aar/1dd93bf076f09a01496382d7229dd288/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/LoadingDialog-v1.0.4.aar/1dd93bf076f09a01496382d7229dd288/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

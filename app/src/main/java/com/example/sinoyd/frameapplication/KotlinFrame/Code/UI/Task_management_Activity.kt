@@ -17,10 +17,7 @@ import com.example.sinoyd.frameapplication.KotlinFrame.Code.db.FormTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.BiaoZhunData
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.JianChuXianData
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Performance_assessment.LingDianData
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Check2clean
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Consumables
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Instrument
-import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.StandardSolutionChange
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.*
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonFormTask
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonTaskPicture
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.jso.JsonweekFormTask
@@ -51,6 +48,7 @@ import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
 import java.util.*
+import com.macaulish.top.velvet.util.Logger
 
 
 /**任务管理**/
@@ -398,12 +396,19 @@ class Task_management_Activity : BaseActivity(){
         var com: ArrayList<Consumables> = ArrayList()
         com = db!!.selector(Consumables::class.java).where("RowGuid", "=", guid)
                 .findAll() as ArrayList<Consumables>
+        var fix: ArrayList<FixInstrument> = db!!.selector(FixInstrument::class.java).where("RowGuid", "=", guid)
+                .findAll() as ArrayList<FixInstrument>
+        var check: ArrayList<CheckInstrument> = db!!.selector(CheckInstrument::class.java).where("RowGuid", "=", guid)
+                .findAll() as ArrayList<CheckInstrument>
         var jsonw = JsonweekFormTask()
         jsonw.check2cleandata = cc
         jsonw.instrumentdata = inst
         jsonw.standardSolutionChangedata = ssc
         jsonw.consumablesdata = com
+        jsonw.fixInstrumentdata = fix
+        jsonw.checkInstrumentdata = check
         jsonw.task = formtask
+        Logger.i(jsonw.toString())
         return jsonw.toString()
     }
 
