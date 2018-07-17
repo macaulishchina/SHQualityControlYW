@@ -98,9 +98,15 @@ class Task_management_Activity : BaseActivity(){
     //从数据库取数据
     private fun getdata4sqlite() {
         try {
-            taskList = db!!.selector(FormTask::class.java).where("Userid", "=", SharedPreferencesFactory.getdata(this, "RowGuid")).findAll()
+            taskList = db!!.selector(FormTask::class.java)
+                    .where("Userid", "=", SharedPreferencesFactory.getdata(this, "RowGuid"))
+                    .where("PointId","=",SharedPreferencesFactory.getdata(this, "PointId"))
+                    .findAll()
+            for(i in taskList){
+                Logger.i("RowGuid =  ${i.rowGuid} UserGuid = ${i.userid},PointId = ${i.pointId},PointNmae = ${i.pointName}")
+            }
             taskListall = db!!.findAll(FormTask::class.java)
-            Log.i("scj", "取任务成功")
+            Log.i("scj", "取任务成功,共${taskList.size}条记录")
         } catch (e: Exception) {
             e.printStackTrace()
             Log.i("scj", "取任务失败" + e.message)

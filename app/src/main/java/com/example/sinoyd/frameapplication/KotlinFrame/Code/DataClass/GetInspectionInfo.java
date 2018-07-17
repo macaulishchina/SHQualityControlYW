@@ -1,5 +1,6 @@
 package com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,14 +11,14 @@ import java.util.List;
  */
 
 public class GetInspectionInfo {
-    private List<AroundInspectStatusBean> AroundInspectStatus; //仪器状况
-    private List<EquipmentBean> Equipment;//设备状况
-    private List<ElectrodeCleaningBean> ElectrodeCleaning;//电ji清理
-    private List<SysCleaningBean> SysCleaning;//系统清理
-    private List<PipelineCleaningBean> PipelineCleaning;//管路清洗
-    private List<InstrumentBean> Instrument;//仪器更换
-    private List<StandardSolutionChangeBean> StandardSolutionChange;//实剂标液更换
-    private List<ConsumablesBean> Consumables; //耗材
+    private List<InspectStatusBean> AroundInspectStatus; //仪器状况
+    private List<InspectStatusBean> Equipment;//设备状况
+    private List<InspectStatusBean> ElectrodeCleaning;//电ji清理
+    private List<InspectStatusBean> SysCleaning;//系统清理
+    private List<InspectStatusBean> PipelineCleaning;//管路清洗
+    private List<InstrumentBean> Instrument = new ArrayList();//仪器更换
+    private List<StandardSolutionChangeBean> StandardSolutionChange=new ArrayList();//实剂标液更换
+    private List<ConsumablesBean> Consumables = new ArrayList(); //耗材
 
 
     public List<ConsumablesBean> getConsumables() {
@@ -28,43 +29,43 @@ public class GetInspectionInfo {
         Consumables = consumables;
     }
 
-    public List<AroundInspectStatusBean> getAroundInspectStatus() {
+    public List<InspectStatusBean> getAroundInspectStatus() {
         return AroundInspectStatus;
     }
 
-    public void setAroundInspectStatus(List<AroundInspectStatusBean> AroundInspectStatus) {
+    public void setAroundInspectStatus(List<InspectStatusBean> AroundInspectStatus) {
         this.AroundInspectStatus = AroundInspectStatus;
     }
 
-    public List<EquipmentBean> getEquipment() {
+    public List<InspectStatusBean> getEquipment() {
         return Equipment;
     }
 
-    public void setEquipment(List<EquipmentBean> Equipment) {
+    public void setEquipment(List<InspectStatusBean> Equipment) {
         this.Equipment = Equipment;
     }
 
-    public List<ElectrodeCleaningBean> getElectrodeCleaning() {
+    public List<InspectStatusBean> getElectrodeCleaning() {
         return ElectrodeCleaning;
     }
 
-    public void setElectrodeCleaning(List<ElectrodeCleaningBean> ElectrodeCleaning) {
+    public void setElectrodeCleaning(List<InspectStatusBean> ElectrodeCleaning) {
         this.ElectrodeCleaning = ElectrodeCleaning;
     }
 
-    public List<SysCleaningBean> getSysCleaning() {
+    public List<InspectStatusBean> getSysCleaning() {
         return SysCleaning;
     }
 
-    public void setSysCleaning(List<SysCleaningBean> SysCleaning) {
+    public void setSysCleaning(List<InspectStatusBean> SysCleaning) {
         this.SysCleaning = SysCleaning;
     }
 
-    public List<PipelineCleaningBean> getPipelineCleaning() {
+    public List<InspectStatusBean> getPipelineCleaning() {
         return PipelineCleaning;
     }
 
-    public void setPipelineCleaning(List<PipelineCleaningBean> PipelineCleaning) {
+    public void setPipelineCleaning(List<InspectStatusBean> PipelineCleaning) {
         this.PipelineCleaning = PipelineCleaning;
     }
 
@@ -84,7 +85,7 @@ public class GetInspectionInfo {
         this.StandardSolutionChange = StandardSolutionChange;
     }
 
-    public static class AroundInspectStatusBean {
+    public static class InspectStatusBean {
         /**
          * StationID :
          * StationName :
@@ -93,390 +94,6 @@ public class GetInspectionInfo {
          * MonitorItemTypeName : 仪器状况
          * MonitorItemCode : 1
          * MonitorItemText : 五参数
-         * MonitorItemValue : 1
-         * MonitorReason :
-         */
-
-        private String StationID;
-        private String StationName;
-        private String ItemName;
-        private String MonitorItemType;
-        private String MonitorItemTypeName;
-        private String MonitorItemCode;
-        private String MonitorItemText;
-        private String MonitorItemValue;
-        private String MonitorReason;
-
-        public String getStationID() {
-            return StationID;
-        }
-
-        public void setStationID(String StationID) {
-            this.StationID = StationID;
-        }
-
-        public String getStationName() {
-            return StationName;
-        }
-
-        public void setStationName(String StationName) {
-            this.StationName = StationName;
-        }
-
-        public String getItemName() {
-            return ItemName;
-        }
-
-        public void setItemName(String ItemName) {
-            this.ItemName = ItemName;
-        }
-
-        public String getMonitorItemType() {
-            return MonitorItemType;
-        }
-
-        public void setMonitorItemType(String MonitorItemType) {
-            this.MonitorItemType = MonitorItemType;
-        }
-
-        public String getMonitorItemTypeName() {
-            return MonitorItemTypeName;
-        }
-
-        public void setMonitorItemTypeName(String MonitorItemTypeName) {
-            this.MonitorItemTypeName = MonitorItemTypeName;
-        }
-
-        public String getMonitorItemCode() {
-            return MonitorItemCode;
-        }
-
-        public void setMonitorItemCode(String MonitorItemCode) {
-            this.MonitorItemCode = MonitorItemCode;
-        }
-
-        public String getMonitorItemText() {
-            return MonitorItemText;
-        }
-
-        public void setMonitorItemText(String MonitorItemText) {
-            this.MonitorItemText = MonitorItemText;
-        }
-
-        public String getMonitorItemValue() {
-            return MonitorItemValue;
-        }
-
-        public void setMonitorItemValue(String MonitorItemValue) {
-            this.MonitorItemValue = MonitorItemValue;
-        }
-
-        public String getMonitorReason() {
-            return MonitorReason;
-        }
-
-        public void setMonitorReason(String MonitorReason) {
-            this.MonitorReason = MonitorReason;
-        }
-    }
-
-    public static class EquipmentBean {
-        /**
-         * StationID :
-         * StationName :
-         * ItemName : 状况
-         * MonitorItemType : 2
-         * MonitorItemTypeName : 设备状况
-         * MonitorItemCode : 1
-         * MonitorItemText : 稳压电源
-         * MonitorItemValue : 1
-         * MonitorReason :
-         */
-
-        private String StationID;
-        private String StationName;
-        private String ItemName;
-        private String MonitorItemType;
-        private String MonitorItemTypeName;
-        private String MonitorItemCode;
-        private String MonitorItemText;
-        private String MonitorItemValue;
-        private String MonitorReason;
-
-        public String getStationID() {
-            return StationID;
-        }
-
-        public void setStationID(String StationID) {
-            this.StationID = StationID;
-        }
-
-        public String getStationName() {
-            return StationName;
-        }
-
-        public void setStationName(String StationName) {
-            this.StationName = StationName;
-        }
-
-        public String getItemName() {
-            return ItemName;
-        }
-
-        public void setItemName(String ItemName) {
-            this.ItemName = ItemName;
-        }
-
-        public String getMonitorItemType() {
-            return MonitorItemType;
-        }
-
-        public void setMonitorItemType(String MonitorItemType) {
-            this.MonitorItemType = MonitorItemType;
-        }
-
-        public String getMonitorItemTypeName() {
-            return MonitorItemTypeName;
-        }
-
-        public void setMonitorItemTypeName(String MonitorItemTypeName) {
-            this.MonitorItemTypeName = MonitorItemTypeName;
-        }
-
-        public String getMonitorItemCode() {
-            return MonitorItemCode;
-        }
-
-        public void setMonitorItemCode(String MonitorItemCode) {
-            this.MonitorItemCode = MonitorItemCode;
-        }
-
-        public String getMonitorItemText() {
-            return MonitorItemText;
-        }
-
-        public void setMonitorItemText(String MonitorItemText) {
-            this.MonitorItemText = MonitorItemText;
-        }
-
-        public String getMonitorItemValue() {
-            return MonitorItemValue;
-        }
-
-        public void setMonitorItemValue(String MonitorItemValue) {
-            this.MonitorItemValue = MonitorItemValue;
-        }
-
-        public String getMonitorReason() {
-            return MonitorReason;
-        }
-
-        public void setMonitorReason(String MonitorReason) {
-            this.MonitorReason = MonitorReason;
-        }
-    }
-
-    public static class ElectrodeCleaningBean {
-        /**
-         * StationID :
-         * StationName :
-         * ItemName : 状况
-         * MonitorItemType : 3
-         * MonitorItemTypeName : 电极清洗
-         * MonitorItemCode : 1
-         * MonitorItemText : 五参数
-         * MonitorItemValue : 1
-         * MonitorReason :
-         */
-
-        private String StationID;
-        private String StationName;
-        private String ItemName;
-        private String MonitorItemType;
-        private String MonitorItemTypeName;
-        private String MonitorItemCode;
-        private String MonitorItemText;
-        private String MonitorItemValue;
-        private String MonitorReason;
-
-        public String getStationID() {
-            return StationID;
-        }
-
-        public void setStationID(String StationID) {
-            this.StationID = StationID;
-        }
-
-        public String getStationName() {
-            return StationName;
-        }
-
-        public void setStationName(String StationName) {
-            this.StationName = StationName;
-        }
-
-        public String getItemName() {
-            return ItemName;
-        }
-
-        public void setItemName(String ItemName) {
-            this.ItemName = ItemName;
-        }
-
-        public String getMonitorItemType() {
-            return MonitorItemType;
-        }
-
-        public void setMonitorItemType(String MonitorItemType) {
-            this.MonitorItemType = MonitorItemType;
-        }
-
-        public String getMonitorItemTypeName() {
-            return MonitorItemTypeName;
-        }
-
-        public void setMonitorItemTypeName(String MonitorItemTypeName) {
-            this.MonitorItemTypeName = MonitorItemTypeName;
-        }
-
-        public String getMonitorItemCode() {
-            return MonitorItemCode;
-        }
-
-        public void setMonitorItemCode(String MonitorItemCode) {
-            this.MonitorItemCode = MonitorItemCode;
-        }
-
-        public String getMonitorItemText() {
-            return MonitorItemText;
-        }
-
-        public void setMonitorItemText(String MonitorItemText) {
-            this.MonitorItemText = MonitorItemText;
-        }
-
-        public String getMonitorItemValue() {
-            return MonitorItemValue;
-        }
-
-        public void setMonitorItemValue(String MonitorItemValue) {
-            this.MonitorItemValue = MonitorItemValue;
-        }
-
-        public String getMonitorReason() {
-            return MonitorReason;
-        }
-
-        public void setMonitorReason(String MonitorReason) {
-            this.MonitorReason = MonitorReason;
-        }
-    }
-
-    public static class SysCleaningBean {
-        /**
-         * StationID :
-         * StationName :
-         * ItemName : 状况
-         * MonitorItemType : 4
-         * MonitorItemTypeName : 系统清洗
-         * MonitorItemCode : 1
-         * MonitorItemText : 取水管路
-         * MonitorItemValue : 1
-         * MonitorReason :
-         */
-
-        private String StationID;
-        private String StationName;
-        private String ItemName;
-        private String MonitorItemType;
-        private String MonitorItemTypeName;
-        private String MonitorItemCode;
-        private String MonitorItemText;
-        private String MonitorItemValue;
-        private String MonitorReason;
-
-        public String getStationID() {
-            return StationID;
-        }
-
-        public void setStationID(String StationID) {
-            this.StationID = StationID;
-        }
-
-        public String getStationName() {
-            return StationName;
-        }
-
-        public void setStationName(String StationName) {
-            this.StationName = StationName;
-        }
-
-        public String getItemName() {
-            return ItemName;
-        }
-
-        public void setItemName(String ItemName) {
-            this.ItemName = ItemName;
-        }
-
-        public String getMonitorItemType() {
-            return MonitorItemType;
-        }
-
-        public void setMonitorItemType(String MonitorItemType) {
-            this.MonitorItemType = MonitorItemType;
-        }
-
-        public String getMonitorItemTypeName() {
-            return MonitorItemTypeName;
-        }
-
-        public void setMonitorItemTypeName(String MonitorItemTypeName) {
-            this.MonitorItemTypeName = MonitorItemTypeName;
-        }
-
-        public String getMonitorItemCode() {
-            return MonitorItemCode;
-        }
-
-        public void setMonitorItemCode(String MonitorItemCode) {
-            this.MonitorItemCode = MonitorItemCode;
-        }
-
-        public String getMonitorItemText() {
-            return MonitorItemText;
-        }
-
-        public void setMonitorItemText(String MonitorItemText) {
-            this.MonitorItemText = MonitorItemText;
-        }
-
-        public String getMonitorItemValue() {
-            return MonitorItemValue;
-        }
-
-        public void setMonitorItemValue(String MonitorItemValue) {
-            this.MonitorItemValue = MonitorItemValue;
-        }
-
-        public String getMonitorReason() {
-            return MonitorReason;
-        }
-
-        public void setMonitorReason(String MonitorReason) {
-            this.MonitorReason = MonitorReason;
-        }
-    }
-
-    public static class PipelineCleaningBean {
-        /**
-         * StationID :
-         * StationName :
-         * ItemName : 状况
-         * MonitorItemType : 5
-         * MonitorItemTypeName : 仪表管路清洗
-         * MonitorItemCode : 1
-         * MonitorItemText : 进样管
          * MonitorItemValue : 1
          * MonitorReason :
          */
@@ -584,6 +201,7 @@ public class GetInspectionInfo {
         private String Reason;
         private String NewProductNumber;
         private String RecordStr;
+        private String LastCheckTime;
 
         public String getRecordStr() {
             return RecordStr;
@@ -663,6 +281,14 @@ public class GetInspectionInfo {
 
         public void setInstrumentName(String InstrumentName) {
             this.InstrumentName = InstrumentName;
+        }
+
+        public String getLastCheckTime() {
+            return LastCheckTime;
+        }
+
+        public void setLastCheckTime(String lastCheckTime) {
+            LastCheckTime = lastCheckTime;
         }
     }
 

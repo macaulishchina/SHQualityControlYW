@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
+import com.example.sinoyd.frameapplication.KotlinFrame.Code.DataClass.GetInspectionInfo
 import com.example.sinoyd.frameapplication.KotlinFrame.Code.db_Weekly_inspection.Check2clean
 import com.example.sinoyd.frameapplication.R
 import kotlinx.android.synthetic.main.gv_item_layout.view.*
@@ -25,9 +26,9 @@ import java.util.HashMap
  */
 
 
-class GridviewAdapter(var datas: List<Check2clean>, var context: Context) : BaseAdapter() {
+class GridviewAdapter(var datas: List<GetInspectionInfo.InspectStatusBean>, var context: Context) : BaseAdapter() {
 
-    var newlist: List<Check2clean> = ArrayList()
+    var newlist: List<GetInspectionInfo.InspectStatusBean> = ArrayList()
 
     init {
         newlist = datas
